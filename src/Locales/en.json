@@ -1,0 +1,54 @@
+{
+  "register": {
+    "document": "DOCUMENT",
+    "titular_birth_day": "   BIRTH DAY (TITULAR)",
+    "birth_day": "   BIRTH DAY",
+    "empty_birth_day": "Choose your Birth Day",
+    "invalid_cpf": "CPF is invalid",
+    "empty_cpf": "CPF is required",
+    "invalid_cnpj": "CNPJ is invalid",
+    "empty_cnpj": "CNPJ is required",
+    "attention": "Attention",
+    "updating": "Updating user",
+    "finish_register": "Please, fill the fields to finish your sign up.",
+    "creating": "Creating user",
+    "creating-provider": "Processing",
+    "error": "Error",
+    "invalid_document": "ZIP CODE is invalid, try other",
+    "account": "   ACCOUNT (WITHOUT DIGIT)",
+    "account_min": "Your Account must be at least 2 characters long",
+    "empty_account": "Insert your Account",
+    "bank": "   BANK",
+    "empty_bank": "Choose your Bank",
+    "account_digit": "   ACCOUNT DIGIT",
+    "empty_account_digit": "Insert your Account's Digit",
+    "agency": "   AGENCY (WITHOUT DIGIT)",
+    "agency_min": "Your Agency must be at least 2 characters long",
+    "empty_agency": "Insert your Agency",
+    "agency_digit": "   AGENCY DIGIT (OPTIONAL)",
+    "empty_agency_digit": "Insert your Agency's Digit",
+    "account_titular": "   ACCOUNT TITULAR",
+    "empty_account_titular": "Insert your Account's Titular",
+    "update": "UPDATE",
+    "account_type": "   ACCOUNT TYPE",
+    "empty_account_type": "Choose your Account Type",
+    "account_type_titular": "   TITULAR TYPE",
+    "empty_type_titular": "Choose Titular Type",
+
+    "complete_register": "Complete Register",
+    "required_field": "Required field",
+    "REGISTER": "REGISTER",
+    "save": "SAVE"
+  },
+  "bank_account": {
+    "corporative": "Corporative",
+    "individual": "Individual",
+    "current_account": "Individual Current Account",
+    "joint_current_account": "Joint Current Account",
+    "saving_account": "Individual Saving Account",
+    "joint_saving_account": "Joint Saving Account"
+  },
+  "checkingAccount": {
+    "formatdate": "MM/DD/YYYY"
+  }
+}

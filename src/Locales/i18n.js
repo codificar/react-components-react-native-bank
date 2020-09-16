@@ -5,13 +5,14 @@ import moment from 'moment';
 // Should the app fallback to English if user locale doesn't exists
 I18n.fallbacks = true;
 
+const en = require('../Locales/en.json');
+const ptBR = require('../Locales/pt-BR.json');
+const ptAO = require('../Locales/pt-AO.json');
+
 // Define the supported translations
-I18n.translations = {
-	...I18n.translations,
-	'en': require('../Locales/en.json'),
-	'pt-BR': require('../Locales/pt-BR.json'),
-	'pt-AO': require('../Locales/pt-AO.json'),
-}
+I18n.translations['en'] = {...I18n.translations['en'], ...en }
+I18n.translations['pt-BR'] = {...I18n.translations['pt-BR'], ...ptBR }
+I18n.translations['pt-AO'] = {...I18n.translations['pt-AO'], ...ptAO }
 
 const currentLocale = I18n.currentLocale();
 
@@ -21,8 +22,6 @@ export const isRTL =
 
 // Allow RTL alignment in RTL languages
 ReactNative.I18nManager.allowRTL(isRTL);
-
-console.log(currentLocale);
 
 // Localizing momentjs
 if (currentLocale.indexOf('pt-BR') === 0) {
@@ -41,4 +40,3 @@ export function strings(name, params = {}) {
 }
 
 export default I18n;
-

@@ -34,15 +34,15 @@ import AccountDigitInput from '../../Components/AccountDigitInput';
 import { strings } from '../../Locales/i18n';
 
 const TypeTitular = {
-	individual: strings('bank_account.individual'),
-	company: strings('bank_account.corporative'),
+	individual: strings('bank_lib.individual'),
+	company: strings('bank_lib.corporative'),
 };
 
 const TypeAccount = {
-	conta_corrente: strings('bank_account.current_account'),
-	conta_corrente_conjunta: strings('bank_account.joint_current_account'),
-	conta_poupanca: strings('bank_account.saving_account'),
-	conta_poupanca_conjunta: strings('bank_account.joint_saving_account'),
+	conta_corrente: strings('bank_lib.current_account'),
+	conta_corrente_conjunta: strings('bank_lib.joint_current_account'),
+	conta_poupanca: strings('bank_lib.saving_account'),
+	conta_poupanca_conjunta: strings('bank_lib.joint_saving_account'),
 };
 
 const BankFormBrasil = (props, ref) => {
@@ -85,11 +85,11 @@ const BankFormBrasil = (props, ref) => {
 	const handleSubmit = async (data, { reset }) => {
 		try {
 			const schema = Yup.object().shape({
-				typeTitular: Yup.string().required('register.empty_document'),
+				typeTitular: Yup.string().required('bank_lib.empty_document'),
 
-				typeAccount: Yup.string().required('register.empty_account_type'),
+				typeAccount: Yup.string().required('bank_lib.empty_account_type'),
 
-				bank: Yup.string().required('register.empty_bank'),
+				bank: Yup.string().required('bank_lib.empty_bank'),
 
 				document: Yup.string()
 					.when('typeTitular', {
@@ -97,28 +97,28 @@ const BankFormBrasil = (props, ref) => {
 						then: Yup.string()
 							.test(
 								'validCNPJ',
-								'register.invalid_cnpj',
+								'bank_lib.invalid_cnpj',
 								(cnpj) => validaCNPJ(cnpj),
 							)
-							.required('register.empty_cnpj'),
+							.required('bank_lib.empty_cnpj'),
 					})
 					.when('typeTitular', {
 						is: 'individual',
 						then: Yup.string()
-							.test('validCPF', 'register.invalid_cpf', (cpf) =>
+							.test('validCPF', 'bank_lib.invalid_cpf', (cpf) =>
 								validaCPF(cpf),
 							)
-							.required('register.empty_cpf'),
+							.required('bank_lib.empty_cpf'),
 					}),
 
 				agency: Yup.string()
-					.required('register.empty_agency')
-					.max(bank?.agency_max_length, 'register.agency_max'),
+					.required('bank_lib.empty_agency')
+					.max(bank?.agency_max_length, 'bank_lib.agency_max'),
 
 				agencyDigit: Yup.string()
 					.test(
 						'validAgencyDigit',
-						'register.agency_digit_required',
+						'bank_lib.agency_digit_required',
 						(value) =>
 							bank?.agency_digit_required
 								? value.length > 0
@@ -126,7 +126,7 @@ const BankFormBrasil = (props, ref) => {
 					)
 					.test(
 						'validAgencyDigitLength',
-						'register.agency_digit_length',
+						'bank_lib.agency_digit_length',
 						(value) =>
 							bank?.agency_digit_required
 								? value.length <= bank?.agency_digit_max_length
@@ -134,14 +134,14 @@ const BankFormBrasil = (props, ref) => {
 					).nullable(),
 
 				account: Yup.string()
-					.required('register.empty_account')
-					.min(2, 'register.account_min')
-					.max(bank?.account_max_length, 'register.account_max'),
+					.required('bank_lib.empty_account')
+					.min(2, 'bank_lib.account_min')
+					.max(bank?.account_max_length, 'bank_lib.account_max'),
 
 				accountDigit: Yup.string()
 					.test(
 						'validAccountDigit',
-						'register.account_digit_required',
+						'bank_lib.account_digit_required',
 						(value) =>
 							bank?.account_digit_required
 								? value.length > 0
@@ -149,7 +149,7 @@ const BankFormBrasil = (props, ref) => {
 					)
 					.test(
 						'validAccountDigitLength',
-						'register.account_digit_length',
+						'bank_lib.account_digit_length',
 						(value) =>
 							bank?.account_digit_required
 								? value.length <= bank?.account_digit_max_length
@@ -157,7 +157,7 @@ const BankFormBrasil = (props, ref) => {
 					).nullable(),
 
 				accountTitular: Yup.string().required(
-					'register.empty_account_titular',
+					'bank_lib.empty_account_titular',
 				),
 			});
 			await schema.validate(data, { abortEarly: false });
@@ -229,7 +229,7 @@ const BankFormBrasil = (props, ref) => {
 				<DropdownPicker
 					stylesheet={stylesheet}
 					name="typeTitular"
-					label={strings('register.account_type_titular')}
+					label={strings('bank_lib.account_type_titular')}
 					onChange={(value) => changeTypeTitular(value)}
 					datasource={TypeTitular}
 				/>
@@ -237,7 +237,7 @@ const BankFormBrasil = (props, ref) => {
 				<DropdownPicker
 					stylesheet={stylesheet}
 					name="typeAccount"
-					label={strings('register.account_type')}
+					label={strings('bank_lib.account_type')}
 					onChange={() => clearAccountFiels()}
 					datasource={TypeAccount}
 				/>
@@ -245,7 +245,7 @@ const BankFormBrasil = (props, ref) => {
 				<View style={styles.bankSearch}>
 					<BankSearchInput
 						name="bank"
-						label={strings('register.bank')}
+						label={strings('bank_lib.bank')}
 						banks={banks}
 						selectedBank={bank?.id}
 						stylesheet={stylesheet}
@@ -259,7 +259,7 @@ const BankFormBrasil = (props, ref) => {
 				<View style={styles.row}>
 					<View style={styles.column}>
 						<AgencyInput
-							label={strings('register.agency')}
+							label={strings('bank_lib.agency')}
 							stylesheet={stylesheet}
 							name="agency"
 							keyboardType="numeric"
@@ -270,7 +270,7 @@ const BankFormBrasil = (props, ref) => {
 						<AgencyDigitInput
 							stylesheet={stylesheet}
 							name="agencyDigit"
-							label={strings('register.agency_digit')}
+							label={strings('bank_lib.agency_digit')}
 							keyboardType="numeric"
 							agencyDigitRequired={Boolean(
 								Number(bank?.agency_digit_required),
@@ -285,7 +285,7 @@ const BankFormBrasil = (props, ref) => {
 						<AccountInput
 							stylesheet={stylesheet}
 							name="account"
-							label={strings('register.account')}
+							label={strings('bank_lib.account')}
 							keyboardType="numeric"
 							accountMaxLength={bank?.account_max_length}
 						/>
@@ -294,7 +294,7 @@ const BankFormBrasil = (props, ref) => {
 						<AccountDigitInput
 							stylesheet={stylesheet}
 							name="accountDigit"
-							label={strings('register.account_digit')}
+							label={strings('bank_lib.account_digit')}
 							keyboardType="numeric"
 							accountDigitRequired={Boolean(
 								Number(bank?.account_digit_required),
@@ -306,7 +306,7 @@ const BankFormBrasil = (props, ref) => {
 
 				<Input
 					name="accountTitular"
-					label={strings('register.account_titular')}
+					label={strings('bank_lib.account_titular')}
 					stylesheet={stylesheet}
 				/>
 
@@ -327,10 +327,10 @@ const BankFormBrasil = (props, ref) => {
 				) : undefined}
 
 				<DatePicker
-					dateFormat={strings('checkingAccount.formatdate')}
+					dateFormat={strings('bank_lib.formatdate')}
 					stylesheet={stylesheet}
 					name="birthDate"
-					label={strings('register.titular_birth_day')}
+					label={strings('bank_lib.titular_birth_day')}
 					maxDate={maxDate}
 				/>
 			</Form>

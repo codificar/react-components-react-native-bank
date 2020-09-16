@@ -28,15 +28,15 @@ import AgencyDigitInput from '../../Components/AgencyDigitInput';
 import AccountDigitInput from '../../Components/AccountDigitInput';
 
 const TypeTitular = {
-	individual: strings('bank_account.individual'),
-	company: strings('bank_account.corporative'),
+	individual: strings('bank_lib.individual'),
+	company: strings('bank_lib.corporative'),
 };
 
 const TypeAccount = {
-	conta_corrente: strings('bank_account.current_account'),
-	conta_corrente_conjunta: strings('bank_account.joint_current_account'),
-	conta_poupanca: strings('bank_account.saving_account'),
-	conta_poupanca_conjunta: strings('bank_account.joint_saving_account'),
+	conta_corrente: strings('bank_lib.current_account'),
+	conta_corrente_conjunta: strings('bank_lib.joint_current_account'),
+	conta_poupanca: strings('bank_lib.saving_account'),
+	conta_poupanca_conjunta: strings('bank_lib.joint_saving_account'),
 };
 
 const BankFormAngola = ( props , ref) => {
@@ -69,26 +69,26 @@ const BankFormAngola = ( props , ref) => {
 		try {
 			const schema = Yup.object().shape({
 
-				typeTitular: Yup.string().required('register.empty_document'),
+				typeTitular: Yup.string().required('bank_lib.empty_document'),
 
-				typeAccount: Yup.string().required('register.empty_account_type'),
+				typeAccount: Yup.string().required('bank_lib.empty_account_type'),
 
-				bank: Yup.string().required('register.empty_bank'),
+				bank: Yup.string().required('bank_lib.empty_bank'),
 
-				document: Yup.string().required('register.empty_cpf'),
+				document: Yup.string().required('bank_lib.empty_cpf'),
 
 				agency: Yup.string()
-					.required('register.empty_agency')
-					.min(3, 'register.agency_min'),
+					.required('bank_lib.empty_agency')
+					.min(3, 'bank_lib.agency_min'),
 
 				agencyDigit: Yup.string().nullable(),
 
 				account: Yup.string()
-					.required('register.empty_account')
-					.min(3, 'register.account_min'),
+					.required('bank_lib.empty_account')
+					.min(3, 'bank_lib.account_min'),
 
 				accountTitular: Yup.string().required(
-					'register.empty_account_titular',
+					'bank_lib.empty_account_titular',
 				),
 			});
 
@@ -159,7 +159,7 @@ const changeBank = (newBank) => {
 				<DropdownPicker
 					stylesheet={stylesheet}
 					name="typeTitular"
-					label={strings('register.account_type_titular')}
+					label={strings('bank_lib.account_type_titular')}
 					onChange={(value) => changeTypeTitular(value)}
 					datasource={TypeTitular}
 				/>
@@ -167,7 +167,7 @@ const changeBank = (newBank) => {
 				<DropdownPicker
 					stylesheet={stylesheet}
 					name="typeAccount"
-					label={strings('register.account_type')}
+					label={strings('bank_lib.account_type')}
 					onChange={() => clearAccountFiels()}
 					datasource={TypeAccount}
 				/>
@@ -175,7 +175,7 @@ const changeBank = (newBank) => {
 				<View style={styles.bankSearch}>
 					<BankSearchInput
 						name="bank"
-						label={strings('register.bank')}
+						label={strings('bank_lib.bank')}
 						banks={banks}
 						selectedBank={bank?.id}
 						stylesheet={stylesheet}
@@ -189,14 +189,14 @@ const changeBank = (newBank) => {
 				<View style={styles.row}>
 					<View style={styles.column}>
 						<AgencyInput
-							label={strings('register.agency')}
+							label={strings('bank_lib.agency')}
 							stylesheet={stylesheet}
 							name="agency"
 						/>
 					</View>
 					<View style={styles.column}>
 						<AgencyDigitInput
-							label={strings('register.agency_digit')}
+							label={strings('bank_lib.agency_digit')}
 							stylesheet={stylesheet}
 							name="agencyDigit"
 						/>
@@ -206,19 +206,19 @@ const changeBank = (newBank) => {
 				<Input
 					stylesheet={stylesheet}
 					name="account"
-					label={strings('register.account')}
+					label={strings('bank_lib.account')}
 				/>
 
 				<Input
 					name="accountTitular"
-					label={strings('register.account_titular')}
+					label={strings('bank_lib.account_titular')}
 					stylesheet={stylesheet}
 				/>
 
 				<Input
 					stylesheet={stylesheet}
 					name="document"
-					label={strings('register.document')}
+					label={strings('bank_lib.document')}
 				/>
 
 			</Form>

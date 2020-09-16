@@ -1,5 +1,5 @@
 {
-  "register": {
+  "bank_lib": {
     "document": "NIF do beneficiário",
     "titular_birth_day": "DATA DE NASCIMENTO (TITULAR)",
     "birth_day": "DATA DE NASCIMENTO",
@@ -30,40 +30,31 @@
     "REGISTER": "REGISTRAR",
     "save": "SALVAR",
     "confirm": "Confirmar",
-    "warning": "Aviso"
-  },
-  "bank_account": {
+    "warning": "Aviso",
+
     "corporative": "Empresa",
     "individual": "Particular",
     "current_account": "Conta Corrente",
     "joint_current_account": "Conta Corrente Conjunta",
     "saving_account": "Conta Poupança",
-    "joint_saving_account": "Conta Poupança Conjunta"
-  },
+    "joint_saving_account": "Conta Poupança Conjunta",
 
-  "checkingAccount": {
     "credit": "Crédito",
     "debit": "Débito",
     "dateInitialError": "DATA INICIAL MAIOR QUE A DATA FINAL",
     "dateFinalError": "DATA FINAL MENOR QUE A INICIAL",
     "formatdate": "DD/MM/YYYY",
     "selectDate": "Selecione a Data",
-    "confirm": "Confirmar",
     "cancel": "Cancelar",
     "checkingAccount": "Conta Corrente",
     "date": "Data",
     "type": "Tipo",
     "value": "Valor",
     "coin": "Kz",
-    "currentBalance": "Ver saldo actual"
-  },
+    "currentBalance": "Ver saldo actual",
 
-  "addBank": {
     "kindPerson": "Tipo de pessoa",
     "accountType": "Tipo de conta",
-    "bank": "Banco",
-    "agency": "Agência",
-    "account": "Conta de IBAN",
     "accountOwner": "Beneficiário",
     "accountDocOwner": "NIF do beneficiário",
     "emptyAgency": "Insira a agência",

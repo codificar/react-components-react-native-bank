@@ -1,5 +1,5 @@
 {
-  "register": {
+  "bank_lib": {
     "document": "DOCUMENT",
     "titular_birth_day": "   BIRTH DAY (TITULAR)",
     "birth_day": "   BIRTH DAY",
@@ -38,17 +38,15 @@
     "complete_register": "Complete Register",
     "required_field": "Required field",
     "REGISTER": "REGISTER",
-    "save": "SAVE"
-  },
-  "bank_account": {
+    "save": "SAVE",
+
     "corporative": "Corporative",
     "individual": "Individual",
     "current_account": "Individual Current Account",
     "joint_current_account": "Joint Current Account",
     "saving_account": "Individual Saving Account",
-    "joint_saving_account": "Joint Saving Account"
-  },
-  "checkingAccount": {
+    "joint_saving_account": "Joint Saving Account",
+
     "formatdate": "MM/DD/YYYY"
   }
 }

@@ -85,8 +85,7 @@ const BankSearchInput = (props) => {
 		if (text.length !== 0) {
 			const bankFiltered = banks.filter((value) => {
 				const bankName = value.code + ' - ' + value.name.toLowerCase();
-				text = text.toLowerCase();
-				return bankName.includes(text);
+				return bankName.includes(text.toLowerCase());
 			});
 			setInput(text);
 			setBankArray(bankFiltered);

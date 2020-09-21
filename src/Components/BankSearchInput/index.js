@@ -88,13 +88,13 @@ const BankSearchInput = (props) => {
 				text = text.toLowerCase();
 				return bankName.includes(text);
 			});
-			setBankArray(bankFiltered);
 			setInput(text);
+			setBankArray(bankFiltered);
 			if (bankFiltered.length === 0) {
 				inputRef.current.value = undefined;
 			}
 		} else {
-			setInput(text);
+			setInput('');
 			setBankArray([]);
 		}
 	};

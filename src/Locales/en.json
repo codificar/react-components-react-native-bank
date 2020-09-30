@@ -21,6 +21,7 @@
     "bank": "   BANK",
     "empty_bank": "Choose your Bank",
     "account_digit": "   ACCOUNT DIGIT",
+    "account_digit_required": "Account digit is required",
     "empty_account_digit": "Insert your Account's Digit",
     "agency": "   AGENCY (WITHOUT DIGIT)",
     "agency_min": "Your Agency must be at least 2 characters long",

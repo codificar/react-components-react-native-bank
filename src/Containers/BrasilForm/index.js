@@ -17,13 +17,10 @@ import { Form } from '@unform/mobile';
 
 // Biblioteca e funcoes de validaçao
 import * as Yup from 'yup';
-import { validaCPF, validaCNPJ } from './validation';
 
 // Fields do Formulário
-import Input from '../../Components/Input';
-import InputMask from '../../Components/InputMask';
+
 import DropdownPicker from '../../Components/DropdownPicker';
-import DatePicker from '../../Components/DatePicker';
 import BankSearchInput from '../../Components/BankSearchInput';
 import AgencyInput from '../../Components/AgencyInput';
 import AccountInput from '../../Components/AccountInput';
@@ -33,11 +30,6 @@ import AccountDigitInput from '../../Components/AccountDigitInput';
 //Lib de traduçoes
 import { strings } from '../../Locales/i18n';
 
-const TypeTitular = {
-	individual: strings('bank_lib.individual'),
-	company: strings('bank_lib.corporative'),
-};
-
 const TypeAccount = {
 	conta_corrente: strings('bank_lib.current_account'),
 	conta_corrente_conjunta: strings('bank_lib.joint_current_account'),
@@ -46,21 +38,13 @@ const TypeAccount = {
 };
 
 const BankFormBrasil = (props, ref) => {
-	const { banks, minAge, initialData, stylesheet , submit } = props;
-	const [typeTitular, setTypeTitular] = useState(initialData?.typeTitular);
+	const { banks, initialData, stylesheet , submit } = props;
 	const [bank, setBank] = useState(undefined);
 
 	const formRef = useRef(null);
 
-	// Configura o Valor máximo permitido para a data
-	let maxDate = new Date();
-	maxDate.setFullYear(maxDate.getFullYear() - minAge);
-
 	// Em caso de ediçao dos dados, seta o banco do component para o indicado no initialData
 	useEffect(() => {
-		formRef.current.setFieldValue('accountTitular', initialData.accountTitular);
-		formRef.current.setFieldValue('birthDate', initialData.birthDate);
-
 		if (initialData?.bank && banks) {
 			const b = banks.find((value) => value.id === initialData.bank);
 			if (b) {
@@ -85,31 +69,9 @@ const BankFormBrasil = (props, ref) => {
 	const handleSubmit = async (data, { reset }) => {
 		try {
 			const schema = Yup.object().shape({
-				typeTitular: Yup.string().required('bank_lib.empty_document'),
-
 				typeAccount: Yup.string().required('bank_lib.empty_account_type'),
 
 				bank: Yup.string().required('bank_lib.empty_bank'),
-
-				document: Yup.string()
-					.when('typeTitular', {
-						is: 'company',
-						then: Yup.string()
-							.test(
-								'validCNPJ',
-								'bank_lib.invalid_cnpj',
-								(cnpj) => validaCNPJ(cnpj),
-							)
-							.required('bank_lib.empty_cnpj'),
-					})
-					.when('typeTitular', {
-						is: 'individual',
-						then: Yup.string()
-							.test('validCPF', 'bank_lib.invalid_cpf', (cpf) =>
-								validaCPF(cpf),
-							)
-							.required('bank_lib.empty_cpf'),
-					}),
 
 				agency: Yup.string()
 					.required('bank_lib.empty_agency')
@@ -155,10 +117,6 @@ const BankFormBrasil = (props, ref) => {
 								? value.length <= bank?.account_digit_max_length
 								: true,
 					).nullable(),
-
-				accountTitular: Yup.string().required(
-					'bank_lib.empty_account_titular',
-				),
 			});
 			await schema.validate(data, { abortEarly: false });
 
@@ -200,15 +158,6 @@ const BankFormBrasil = (props, ref) => {
 	};
 
 	/**
-	 * Troca o tipo de titular da conta do banco. (cpf, cnpj)
-	 * @param {string} 'individual' || 'company'
-	 */
-	const changeTypeTitular = (value) => {
-		setTypeTitular(value);
-		formRef.current.setFieldValue('document', '');
-	};
-
-	/**
 	 * Troca o banco do componente para pegar as novas configuraçoes de validacao
 	 *
 	 * @param newBank
@@ -226,14 +175,6 @@ const BankFormBrasil = (props, ref) => {
 				onSubmit={handleSubmit}
 				initialData={initialData}
 				>
-				<DropdownPicker
-					stylesheet={stylesheet}
-					name="typeTitular"
-					label={strings('bank_lib.account_type_titular')}
-					onChange={(value) => changeTypeTitular(value)}
-					datasource={TypeTitular}
-				/>
-
 				<DropdownPicker
 					stylesheet={stylesheet}
 					name="typeAccount"
@@ -303,36 +244,6 @@ const BankFormBrasil = (props, ref) => {
 						/>
 					</View>
 				</View>
-
-				<Input
-					name="accountTitular"
-					label={strings('bank_lib.account_titular')}
-					stylesheet={stylesheet}
-				/>
-
-				{typeTitular === 'individual' ? (
-					<InputMask
-						type={'cpf'}
-						stylesheet={stylesheet}
-						name="document"
-						label="CPF"
-					/>
-				) : typeTitular === 'company' ? (
-					<InputMask
-						type={'cnpj'}
-						stylesheet={stylesheet}
-						name="document"
-						label="CNPJ"
-					/>
-				) : undefined}
-
-				<DatePicker
-					dateFormat={strings('bank_lib.formatdate')}
-					stylesheet={stylesheet}
-					name="birthDate"
-					label={strings('bank_lib.titular_birth_day')}
-					maxDate={maxDate}
-				/>
 			</Form>
 		</TouchableWithoutFeedback>
 	);
@@ -340,7 +251,7 @@ const BankFormBrasil = (props, ref) => {
 
 const styles = StyleSheet.create({
 	bankSearch: {
-		maxHeight: '40%',
+		maxHeight: '30%',
 	},
 	row: {
 		marginTop: 10,

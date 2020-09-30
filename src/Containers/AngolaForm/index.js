@@ -18,19 +18,10 @@ import { strings } from '../../Locales/i18n';
 
 // Fields do Formulário
 import Input from '../../Components/Input';
-import InputMask from '../../Components/InputMask';
 import DropdownPicker from '../../Components/DropdownPicker';
-import DatePicker from '../../Components/DatePicker';
 import BankSearchInput from '../../Components/BankSearchInput';
 import AgencyInput from '../../Components/AgencyInput';
-import AccountInput from '../../Components/AccountInput';
 import AgencyDigitInput from '../../Components/AgencyDigitInput';
-import AccountDigitInput from '../../Components/AccountDigitInput';
-
-const TypeTitular = {
-	individual: strings('bank_lib.individual'),
-	company: strings('bank_lib.corporative'),
-};
 
 const TypeAccount = {
 	conta_corrente: strings('bank_lib.current_account'),
@@ -41,15 +32,13 @@ const TypeAccount = {
 
 const BankFormAngola = ( props , ref) => {
 
-	const { banks, minAge, initialData, stylesheet , submit } = props;
-	const [typeTitular, setTypeTitular] = useState(initialData?.typeTitular);
+	const { banks, initialData, stylesheet , submit } = props;
 	const [bank, setBank] = useState(undefined);
 
 	const formRef = useRef(null);
 
 	// Em caso de ediçao dos dados, seta o banco do component para o indicado no initialData
 	useEffect(() => {
-		formRef.current.setFieldValue('accountTitular', initialData.accountTitular);
 
 		if (initialData?.bank && banks) {
 			const b = banks.find((value) => value.id === initialData.bank);
@@ -57,7 +46,7 @@ const BankFormAngola = ( props , ref) => {
 				setBank(b);
 			}
 		}
-	}, [banks, initialData.bank, initialData.accountTitular, initialData.birthDate]);
+	}, [banks, initialData.bank]);
 
 	/**
 	 * Realiza as validaçoes dos campos para enviar o form
@@ -65,17 +54,12 @@ const BankFormAngola = ( props , ref) => {
 	 * @param {} reset
 	 */
 	async function handleSubmit(data, { reset }) {
-		console.log(data);
 		try {
 			const schema = Yup.object().shape({
-
-				typeTitular: Yup.string().required('bank_lib.empty_document'),
 
 				typeAccount: Yup.string().required('bank_lib.empty_account_type'),
 
 				bank: Yup.string().required('bank_lib.empty_bank'),
-
-				document: Yup.string().required('bank_lib.empty_cpf'),
 
 				agency: Yup.string()
 					.required('bank_lib.empty_agency')
@@ -131,15 +115,6 @@ const clearAccountFiels = () => {
 };
 
 /**
- * Troca o tipo de titular da conta do banco. (cpf, cnpj)
- * @param {string} 'individual' || 'company'
- */
-const changeTypeTitular = (value) => {
-	setTypeTitular(value);
-	formRef.current.setFieldValue('document', '');
-};
-
-/**
  * Troca o banco do componente para pegar as novas configuraçoes de validacao
  *
  * @param newBank
@@ -156,13 +131,6 @@ const changeBank = (newBank) => {
 				ref={formRef}
 				onSubmit={handleSubmit}
 				initialData={initialData}>
-				<DropdownPicker
-					stylesheet={stylesheet}
-					name="typeTitular"
-					label={strings('bank_lib.account_type_titular')}
-					onChange={(value) => changeTypeTitular(value)}
-					datasource={TypeTitular}
-				/>
 
 				<DropdownPicker
 					stylesheet={stylesheet}
@@ -208,19 +176,6 @@ const changeBank = (newBank) => {
 					name="account"
 					label={strings('bank_lib.account')}
 				/>
-
-				<Input
-					name="accountTitular"
-					label={strings('bank_lib.account_titular')}
-					stylesheet={stylesheet}
-				/>
-
-				<Input
-					stylesheet={stylesheet}
-					name="document"
-					label={strings('bank_lib.document')}
-				/>
-
 			</Form>
 		</TouchableWithoutFeedback>
 	);

@@ -3,7 +3,6 @@ import { FormHandles } from '@unform/core';
 
 export interface BankFormData {
 	bank: number;
-	typeTitular: 'individual' | 'company';
 	typeAccount:
 		| 'conta_corrente'
 		| 'conta_corrente_conjunta'
@@ -14,8 +13,6 @@ export interface BankFormData {
 	accountDigit: string;
 	agencyDigit: string;
 	accountTitular: string;
-	document: string;
-	birthDate: Date;
 }
 
 interface Params {
@@ -50,10 +47,7 @@ export interface Bank {
 	account_digit_max_length: number;
 }
 
-declare const BankForm: React.ForwardRefRenderFunction<BankRef, BankFormProps> = (
-    props,
-	ref,
-) => { }
+declare const BankForm: React.ForwardRefRenderFunction<BankRef, BankFormProps>;
 
 export default BankForm;
 

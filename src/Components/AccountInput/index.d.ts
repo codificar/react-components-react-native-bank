@@ -23,6 +23,10 @@ interface AccountInputProps extends TextInputProps {
     stylesheet: any;
 }
 
-declare const AccountInput: React.FC<AccountInputProps>;
+interface AccountRef {
+	focus(): void;
+}
 
-export default AccountInput;
+declare const AccountInput: React.ForwardRefRenderFunction<AccountRef,AccountInputProps>;
+
+export default React.forwardRef(AccountInput);

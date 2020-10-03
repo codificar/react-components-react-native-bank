@@ -11,7 +11,6 @@ let defaultForm = {
 	account: '',
 	accountDigit: '',
 	agencyDigit: '',
-	document: '',
 };
 
 const initialDataSchema = {
@@ -22,10 +21,7 @@ const initialDataSchema = {
 	|| value === 'conta_poupanca_conjunta',
 }
 
-const BankForm = (
-	props,
-	ref,
-) => {
+const BankForm = (props, ref) => {
 	const [banks, setBanks] = useState([]);
 	const { route, initialData, onSubmit, params, stylesheet } = props;
 
@@ -64,23 +60,35 @@ const BankForm = (
 		return false;
 	}
 
+	/**
+	 * @returns Converte os valores do objeto initialData para string
+	 **/
+	const parseInitialDataValues = () => {
+		return Object.keys(initialData).reduce((acc, key) => {
+			acc[key] = key !== 'bank' ? initialData[key] + '' : initialData[key];
+			return acc;
+		}, {});
+	}
+
 	return (
 		<>
 			{params.lang === 'pt-ao' ? (
 				<BankFormAngola 
-				ref={ref}
-				stylesheet={stylesheet}
-				initialData={initialDataValid() ? initialData : defaultForm}
-				banks={banks}
-				submit={(data) => onSubmit(data)}
-			/>
+					ref={ref}
+					stylesheet={stylesheet}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
+					mode={ initialDataValid() ? "edit" : "register" }
+					banks={banks}
+					submit={ (data) => onSubmit(data)}
+				/>
 			) : (
 				<BankFormBrasil
 					ref={ref}
 					stylesheet={stylesheet}
-					initialData={initialDataValid() ? initialData : defaultForm}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
+					mode={ initialDataValid() ? "edit" : "register" }
 					banks={banks}
-					submit={(data) => onSubmit(data)}
+					submit={ (data) => onSubmit(data)}
 				/>
 			)}
 		</>

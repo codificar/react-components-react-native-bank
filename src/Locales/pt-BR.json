@@ -48,9 +48,9 @@
 
     "corporative": "Pessoa Jurídica",
     "individual": "Pessoa Física",
-    "current_account": "Conta Corrente Individual",
+    "current_account": "Conta Corrente",
     "joint_current_account": "Conta Corrente Conjunta",
-    "saving_account": "Conta Poupança Individual",
+    "saving_account": "Conta Poupança",
     "joint_saving_account": "Conta Poupança Conjunta",
 
     "credit": "Crédito",

@@ -1,15 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useImperativeHandle, useEffect, useRef } from 'react';
 import {
 	StyleSheet,
 	Text,
 	TextInput,
 	View,
-	TextInputProps,
 } from 'react-native';
 
 import { useField } from '@unform/core';
 
-const AccountInput = (props) => {
+const AccountInput = (props, ref) => {
 	const {
 		name,
 		label,
@@ -22,6 +21,12 @@ const AccountInput = (props) => {
 	//const [text, setText] = useState('');
 	const inputRef = useRef(null);
 	const { fieldName, registerField, defaultValue, error } = useField(name);
+
+	useImperativeHandle(ref, () => ({
+		focus() {
+		  inputRef.current.focus();
+		},
+	}));
 
 	var formGroupStyle = stylesheet.formGroup.normal;
 	var controlLabelStyle = stylesheet.controlLabel.normal;
@@ -112,4 +117,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default AccountInput;
+export default React.forwardRef(AccountInput);

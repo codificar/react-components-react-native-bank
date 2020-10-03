@@ -13,7 +13,7 @@
     "empty_bank": "Selecione seu Banco",
     "account_digit": "Dígito da conta",
     "empty_account_digit": "Insira o Dígito do IBAN",
-    "agency": "   Agência",
+    "agency": "Agência",
     "agency_min": "Sua Agência deve possuir ao menos 3 caracteres",
     "empty_agency": "Insira o número de IBAN da Agência",
     "agency_digit": "Digito da agência",

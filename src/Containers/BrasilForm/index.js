@@ -6,10 +6,10 @@ import React, {
 	useImperativeHandle,
 } from 'react';
 import {
+	Keyboard,
 	StyleSheet,
 	View,
-	TouchableWithoutFeedback,
-	Keyboard,
+	TouchableWithoutFeedback
 } from 'react-native';
 
 // Unform Rocketseat
@@ -38,10 +38,15 @@ const TypeAccount = {
 };
 
 const BankFormBrasil = (props, ref) => {
-	const { banks, initialData, stylesheet , submit } = props;
+	const { banks, initialData, mode, stylesheet , submit } = props;
 	const [bank, setBank] = useState(undefined);
 
 	const formRef = useRef(null);
+
+	const agencyRef = useRef(null);
+	const agencyDigitRef = useRef(null);
+	const accountRef = useRef(null);
+	const accountDigitRef = useRef(null);
 
 	// Em caso de ediçao dos dados, seta o banco do component para o indicado no initialData
 	useEffect(() => {
@@ -51,7 +56,19 @@ const BankFormBrasil = (props, ref) => {
 				setBank(b);
 			}
 		}
-	}, [banks, initialData.bank, initialData.accountTitular, initialData.birthDate]);
+	}, [banks, initialData.bank]);
+
+	useEffect(() => {
+		Keyboard.addListener('keyboardDidHide', hide);
+	
+		return () => Keyboard.removeListener('keyboardDidHide', hide);
+	})
+	
+	const hide = () => {
+		if(mode === "edit") {
+			formRef.current.submitForm();
+		}
+	}
 
 	/**
 	 * Realiza as validaçoes dos campos para enviar o form
@@ -68,6 +85,8 @@ const BankFormBrasil = (props, ref) => {
 	 */
 	const handleSubmit = async (data, { reset }) => {
 		try {
+			formRef.current.setErrors({});
+
 			const schema = Yup.object().shape({
 				typeAccount: Yup.string().required('bank_lib.empty_account_type'),
 
@@ -190,25 +209,29 @@ const BankFormBrasil = (props, ref) => {
 						banks={banks}
 						selectedBank={bank?.id}
 						stylesheet={stylesheet}
-						onSelectBank={(value) => changeBank(value)}
-						clearErrors={() =>
-							formRef.current.setFieldError('bank', '')
-						}
+						onSelectBank={(value) => {
+							changeBank(value);
+							agencyRef.current?.focus();
+						}}
+						clearErrors={ () => formRef.current.setFieldError('bank', '') }
 					/>
 				</View>
 				
 				<View style={styles.row}>
 					<View style={styles.column}>
 						<AgencyInput
+							ref={agencyRef}
 							label={strings('bank_lib.agency')}
 							stylesheet={stylesheet}
 							name="agency"
 							keyboardType="numeric"
 							agencyMaxLength={bank?.agency_max_length}
+							onSubmitEditing={() => agencyDigitRef.current?.focus()}
 						/>
 					</View>
 					<View style={styles.column}>
 						<AgencyDigitInput
+							ref={agencyDigitRef}
 							stylesheet={stylesheet}
 							name="agencyDigit"
 							label={strings('bank_lib.agency_digit')}
@@ -217,6 +240,7 @@ const BankFormBrasil = (props, ref) => {
 								Number(bank?.agency_digit_required),
 							)}
 							agencyDigitMaxLength={ bank?.agency_digit_max_length }
+							onSubmitEditing={() => accountRef.current?.focus()}
 						/>
 					</View>
 				</View>
@@ -224,15 +248,18 @@ const BankFormBrasil = (props, ref) => {
 				<View style={styles.row}>
 					<View style={styles.column}>
 						<AccountInput
+							ref={accountRef}
 							stylesheet={stylesheet}
 							name="account"
 							label={strings('bank_lib.account')}
 							keyboardType="numeric"
 							accountMaxLength={bank?.account_max_length}
+							onSubmitEditing={() => accountDigitRef.current?.focus()}
 						/>
 					</View>
 					<View style={styles.column}>
 						<AccountDigitInput
+							ref={accountDigitRef}
 							stylesheet={stylesheet}
 							name="accountDigit"
 							label={strings('bank_lib.account_digit')}
@@ -241,6 +268,7 @@ const BankFormBrasil = (props, ref) => {
 								Number(bank?.account_digit_required),
 							)}
 							accountDigitMaxLength={ bank?.account_digit_max_length }
+							onSubmitEditing={() => formRef.current?.submitForm()}
 						/>
 					</View>
 				</View>
@@ -251,7 +279,7 @@ const BankFormBrasil = (props, ref) => {
 
 const styles = StyleSheet.create({
 	bankSearch: {
-		maxHeight: '30%',
+		maxHeight: '40%',
 	},
 	row: {
 		marginTop: 10,

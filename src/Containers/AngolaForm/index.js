@@ -20,8 +20,6 @@ import { strings } from '../../Locales/i18n';
 import Input from '../../Components/Input';
 import DropdownPicker from '../../Components/DropdownPicker';
 import BankSearchInput from '../../Components/BankSearchInput';
-import AgencyInput from '../../Components/AgencyInput';
-import AgencyDigitInput from '../../Components/AgencyDigitInput';
 
 const TypeAccount = {
 	conta_corrente: strings('bank_lib.current_account'),
@@ -36,6 +34,8 @@ const BankFormAngola = ( props , ref) => {
 	const [bank, setBank] = useState(undefined);
 
 	const formRef = useRef(null);
+	const agencyRef = useRef(null);
+	const accountRef = useRef(null);
 
 	// Em caso de ediçao dos dados, seta o banco do component para o indicado no initialData
 	useEffect(() => {
@@ -48,6 +48,16 @@ const BankFormAngola = ( props , ref) => {
 		}
 	}, [banks, initialData.bank]);
 
+	useEffect(() => {
+		Keyboard.addListener('keyboardDidHide', hide);
+	
+		return () => Keyboard.removeListener('keyboardDidHide', hide);
+	})
+	
+	const hide = () =>{
+		formRef.current.submitForm();
+	}
+
 	/**
 	 * Realiza as validaçoes dos campos para enviar o form
 	 * @param {} data
@@ -55,6 +65,7 @@ const BankFormAngola = ( props , ref) => {
 	 */
 	async function handleSubmit(data, { reset }) {
 		try {
+			formRef.current.setErrors({});
 			const schema = Yup.object().shape({
 
 				typeAccount: Yup.string().required('bank_lib.empty_account_type'),
@@ -65,18 +76,14 @@ const BankFormAngola = ( props , ref) => {
 					.required('bank_lib.empty_agency')
 					.min(3, 'bank_lib.agency_min'),
 
-				agencyDigit: Yup.string().nullable(),
 
 				account: Yup.string()
 					.required('bank_lib.empty_account')
 					.min(3, 'bank_lib.account_min'),
 
-				accountTitular: Yup.string().required(
-					'bank_lib.empty_account_titular',
-				),
 			});
 
-			await schema.validate(data, { abortEarly: false });
+			await schema.validate(data, { abortEarly: true });
 
 			submit(data);
 
@@ -104,7 +111,6 @@ useImperativeHandle(ref, () => ({
  */
 const clearAgencyFiels = () => {
 	formRef.current.setFieldValue('agency', '');
-	formRef.current.setFieldValue('agencyDigit', '');
 };
 
 /**
@@ -147,34 +153,32 @@ const changeBank = (newBank) => {
 						banks={banks}
 						selectedBank={bank?.id}
 						stylesheet={stylesheet}
-						onSelectBank={(value) => changeBank(value)}
+						onSelectBank={(value) => {
+							changeBank(value);
+							agencyRef.current?.focus();
+						}}
 						clearErrors={() =>
 							formRef.current.setFieldError('bank', '')
 						}
 					/>
 				</View>
 
-				<View style={styles.row}>
-					<View style={styles.column}>
-						<AgencyInput
-							label={strings('bank_lib.agency')}
-							stylesheet={stylesheet}
-							name="agency"
-						/>
-					</View>
-					<View style={styles.column}>
-						<AgencyDigitInput
-							label={strings('bank_lib.agency_digit')}
-							stylesheet={stylesheet}
-							name="agencyDigit"
-						/>
-					</View>
+				<View style={{ marginTop: 10 }}>
+					<Input
+						ref={agencyRef}
+						label={strings('bank_lib.agency')}
+						stylesheet={stylesheet}
+						name="agency"
+						onEndEditing={() => accountRef.current?.focus()}
+					/>
 				</View>
 
 				<Input
+					ref={accountRef}
 					stylesheet={stylesheet}
 					name="account"
 					label={strings('bank_lib.account')}
+					onEndEditing={() => formRef.current.submitForm()}
 				/>
 			</Form>
 		</TouchableWithoutFeedback>

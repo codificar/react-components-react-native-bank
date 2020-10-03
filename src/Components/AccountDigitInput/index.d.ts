@@ -28,6 +28,10 @@ interface AccountDigitInputProps extends TextInputProps {
 	stylesheet: any;
 }
 
-declare const AccountDigitInput: React.FC<AccountDigitInputProps>;
+interface AccountDigitRef {
+	focus(): void;
+}
 
-export default AccountDigitInput;
+declare const AccountDigitInput: React.ForwardRefRenderFunction<AccountDigitRef,AccountDigitInputProps>;
+
+export default React.forwardRef(AccountDigitInput);

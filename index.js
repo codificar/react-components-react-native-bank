@@ -77,7 +77,6 @@ const BankForm = (props, ref) => {
 					ref={ref}
 					stylesheet={stylesheet}
 					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
-					mode={ initialDataValid() ? "edit" : "register" }
 					banks={banks}
 					submit={ (data) => onSubmit(data)}
 				/>
@@ -86,7 +85,6 @@ const BankForm = (props, ref) => {
 					ref={ref}
 					stylesheet={stylesheet}
 					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
-					mode={ initialDataValid() ? "edit" : "register" }
 					banks={banks}
 					submit={ (data) => onSubmit(data)}
 				/>

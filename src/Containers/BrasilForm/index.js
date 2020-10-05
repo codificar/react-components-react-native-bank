@@ -38,7 +38,7 @@ const TypeAccount = {
 };
 
 const BankFormBrasil = (props, ref) => {
-	const { banks, initialData, mode, stylesheet , submit } = props;
+	const { banks, initialData, stylesheet , submit } = props;
 	const [bank, setBank] = useState(undefined);
 
 	const formRef = useRef(null);
@@ -65,8 +65,22 @@ const BankFormBrasil = (props, ref) => {
 	})
 	
 	const hide = () => {
-		if(mode === "edit") {
-			formRef.current.submitForm();
+		const type = formRef.current.getFieldValue('typeAccount')
+		const ag = formRef.current.getFieldValue('agency')
+		const agDigit = formRef.current.getFieldValue('agencyDigit')
+		const ac = formRef.current.getFieldValue('accountDigit')
+		const acDigit = formRef.current.getFieldValue('accountDigit')
+		
+		if(bank){
+			if(type, ag, ac){
+				if(bank.agency_digit_required && bank.account_digit_required){
+					if(agDigit && acDigit){
+						formRef.current.submitForm();
+					}
+				} else {
+					formRef.current.submitForm();
+				}
+			}
 		}
 	}
 

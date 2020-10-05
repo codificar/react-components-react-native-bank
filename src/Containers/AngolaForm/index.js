@@ -55,7 +55,15 @@ const BankFormAngola = ( props , ref) => {
 	})
 	
 	const hide = () =>{
-		formRef.current.submitForm();
+		const type = formRef.current.getFieldValue('typeAccount')
+		const ag = formRef.current.getFieldValue('agency')
+		const ac = formRef.current.getFieldValue('accountDigit')
+
+		if(bank){
+			if(type, ag, ac){
+				formRef.current.submitForm();
+			}
+		}
 	}
 
 	/**

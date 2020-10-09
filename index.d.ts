@@ -19,7 +19,7 @@ interface Params {
 	id: number;
 	token: string;
 	lang: string;
-	country_iso: string;
+	country_iso?: string;
 }
 
 interface BankFormProps {

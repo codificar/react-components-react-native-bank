@@ -13,6 +13,13 @@ let defaultForm = {
 	agencyDigit: '',
 };
 
+const countries = {
+    'pt-br': 'BR',
+    'pt-ao': 'AO',
+	'es': 'ES',
+	//'en': '',
+}
+
 const initialDataSchema = {
 	bank: value => parseInt(value) === Number(value),
 	typeAccount: value => value ==='conta_corrente'
@@ -29,6 +36,13 @@ const BankForm = (props, ref) => {
 	 * @returns Array com bancos retornados da API
 	 **/
 	useEffect(() => {
+
+		if(!params.country_iso && countries[params.lang]) {
+			params.country_iso = countries[params.lang];
+		} else {
+			params.country_iso = countries["pt-br"];
+		}
+		console.log(params)
 		axios
 			.get(route + '/filter', {
 				params,

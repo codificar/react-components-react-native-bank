@@ -28,6 +28,10 @@ interface AgencyDigitInputProps extends TextInputProps {
     stylesheet: any;
 }
 
-declare const AgencyDigitInput: React.FC<AgencyDigitInputProps>;
+interface AgencyDigitRef {
+	focus(): void;
+}
 
-export default AgencyDigitInput;
+declare const AgencyDigitInput: React.ForwardRefRenderFunction<AgencyDigitRef,AgencyDigitInputProps>;
+
+export default React.forwardRef(AgencyDigitInput);

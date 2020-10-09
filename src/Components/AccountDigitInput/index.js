@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useImperativeHandle } from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -8,7 +8,7 @@ import {
 
 import { useField } from '@unform/core';
 
-const AccountDigitInput = (props) => {
+const AccountDigitInput = (props, ref) => {
 	const {
 		name,
 		label,
@@ -22,6 +22,12 @@ const AccountDigitInput = (props) => {
 
 	const inputRef = useRef(null);
 	const { fieldName, registerField, defaultValue, error } = useField(name);
+
+	useImperativeHandle(ref, () => ({
+		focus() {
+		  inputRef.current.focus();
+		},
+	}));
 
 	var formGroupStyle = stylesheet.formGroup.normal;
 	var controlLabelStyle = stylesheet.controlLabel.normal;
@@ -110,4 +116,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default AccountDigitInput;
+export default React.forwardRef(AccountDigitInput);

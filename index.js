@@ -6,38 +6,29 @@ import BankFormAngola from './src/Containers/AngolaForm';
 
 let defaultForm = {
 	bank: undefined,
-	typeTitular: 'individual',
 	typeAccount: 'conta_corrente',
 	agency: '',
 	account: '',
 	accountDigit: '',
 	agencyDigit: '',
-	accountTitular: '',
-	document: '',
-	birthDate: undefined,
 };
 
 const initialDataSchema = {
 	bank: value => parseInt(value) === Number(value),
-	typeTitular: value => value === 'individual' || value === 'company',
 	typeAccount: value => value ==='conta_corrente'
 	|| value === 'conta_corrente_conjunta'
 	|| value === 'conta_poupanca'
 	|| value === 'conta_poupanca_conjunta',
 }
 
-const BankForm = (
-	props,
-	ref,
-) => {
+const BankForm = (props, ref) => {
 	const [banks, setBanks] = useState([]);
-	const { route, minAge = 18, initialData, onSubmit, params, stylesheet } = props;
+	const { route, initialData, onSubmit, params, stylesheet } = props;
 
 	/**
 	 * @returns Array com bancos retornados da API
 	 **/
 	useEffect(() => {
-		console.log(params)
 		axios
 			.get(route + '/filter', {
 				params,
@@ -69,25 +60,33 @@ const BankForm = (
 		return false;
 	}
 
+	/**
+	 * @returns Converte os valores do objeto initialData para string
+	 **/
+	const parseInitialDataValues = () => {
+		return Object.keys(initialData).reduce((acc, key) => {
+			acc[key] = key !== 'bank' ? initialData[key] + '' : initialData[key];
+			return acc;
+		}, {});
+	}
+
 	return (
 		<>
 			{params.lang === 'pt-ao' ? (
 				<BankFormAngola 
-				ref={ref}
-				minAge={minAge}
-				stylesheet={stylesheet}
-				initialData={initialDataValid() ? initialData : defaultForm}
-				banks={banks}
-				submit={(data) => onSubmit(data)}
-			/>
+					ref={ref}
+					stylesheet={stylesheet}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
+					banks={banks}
+					submit={ (data) => onSubmit(data)}
+				/>
 			) : (
 				<BankFormBrasil
 					ref={ref}
-					minAge={minAge}
 					stylesheet={stylesheet}
-					initialData={initialDataValid() ? initialData : defaultForm}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					banks={banks}
-					submit={(data) => onSubmit(data)}
+					submit={ (data) => onSubmit(data)}
 				/>
 			)}
 		</>

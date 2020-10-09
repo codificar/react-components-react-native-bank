@@ -18,6 +18,10 @@ interface InputProps extends TextInputProps {
     stylesheet: any;
 }
 
-declare const Input: React.FC<InputProps>;
+interface InputRef {
+	focus(): void;
+}  
+
+declare const Input: React.ForwardRefRenderFunction<InputRef, InputProps>;
 
 export default Input;

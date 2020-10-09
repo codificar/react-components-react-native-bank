@@ -163,8 +163,7 @@ const styles = StyleSheet.create({
 		fontSize: 13,
 	},
 	input: {
-		borderBottomWidth: 0.5,
-
+		borderBottomWidth: StyleSheet.hairlineWidth,
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-between',

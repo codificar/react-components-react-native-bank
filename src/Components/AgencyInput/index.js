@@ -1,15 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useImperativeHandle,useRef, forwardRef } from 'react';
 import {
 	StyleSheet,
 	Text,
 	TextInput,
 	View,
-	TextInputProps,
 } from 'react-native';
 
 import { useField } from '@unform/core';
 
-const AgencyInput = (props) => {
+const AgencyInput = (props, ref) => {
 	const {
 		name,
 		label,
@@ -34,6 +33,12 @@ const AgencyInput = (props) => {
 		textboxViewStyle = stylesheet.textboxView.error;
 		helpBlockStyle = stylesheet.helpBlock.error;
 	}
+
+	useImperativeHandle(ref, () => ({
+		focus() {
+		  inputRef.current.focus();
+		},
+	}));
 
 	useEffect(() => {
 		inputRef.current.value = defaultValue;
@@ -109,4 +114,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default AgencyInput;
+export default forwardRef(AgencyInput);

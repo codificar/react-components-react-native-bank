@@ -1,20 +1,5 @@
 {
   "bank_lib": {
-    "document": "CPF",
-    "titular_birth_day": "DATA DE NASCIMENTO (TITULAR)",
-    "birth_day": "   DATA DE NASCIMENTO",
-    "empty_birth_day": "Escolha sua Data de Nascimento",
-    "invalid_cpf": "CPF é inválido",
-    "empty_cpf": "Insira o CPF",
-    "invalid_cnpj": "CNPJ é inválido",
-    "empty_cnpj": "Insira o CNPJ",
-    "attention": "Atenção",
-    "updating": "Atualizando usuário",
-    "finish_register": "Por favor, complete os dados para terminar o cadastro.",
-    "creating": "Registrando usuário",
-    "creating-provider": "Processando",
-    "error": "Erro",
-    "invalid_document": "CEP inválido, tente outro",
     "account": "CONTA (SEM DÍGITO)",
     "account_min": "Sua Conta deve possuir ao menos 2 caracteres",
     "empty_account": "Insira o número da Conta",
@@ -35,37 +20,19 @@
     "empty_agency_digit": "Insira o Dígito da Agência",
     "account_titular": "TITULAR DA CONTA",
     "empty_account_titular": "Insira o Titular da Conta",
-    "update": "ATUALIZAR",
+
     "account_type": "TIPO DA CONTA",
     "empty_account_type": "Selecione o Tipo de Conta",
     "account_type_titular": "TIPO DO TITULAR",
     "empty_type_titular": "Selecione o Tipo de Titular",
     
-    "complete_register": "Cadastro completo",
     "required_field": "Campo obrigatório",
-    "REGISTER": "REGISTRAR",
-    "save": "SALVAR",
 
     "corporative": "Pessoa Jurídica",
     "individual": "Pessoa Física",
-    "current_account": "Conta Corrente Individual",
+    "current_account": "Conta Corrente",
     "joint_current_account": "Conta Corrente Conjunta",
-    "saving_account": "Conta Poupança Individual",
-    "joint_saving_account": "Conta Poupança Conjunta",
-
-    "credit": "Crédito",
-    "debit": "Débito",
-    "dateInitialError": "DATA INICIAL MAIOR QUE A DATA FINAL",
-    "dateFinalError": "DATA FINAL MENOR QUE A INICIAL",
-    "formatdate": "DD/MM/YYYY",
-    "selectDate": "Selecione a Data",
-    "confirm": "Confirmar",
-    "cancel": "Cancelar",
-    "checkingAccount": "Conta Corrente",
-    "date": "Data",
-    "type": "Tipo",
-    "value": "Valor",
-    "coin": "R$",
-    "currentBalance": "Ver saldo atual"
+    "saving_account": "Conta Poupança",
+    "joint_saving_account": "Conta Poupança Conjunta"
   }
 }

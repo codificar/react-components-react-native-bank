@@ -107,8 +107,8 @@ const BankFormBrasil = (props, ref) => {
 				bank: Yup.string().required('bank_lib.empty_bank'),
 
 				agency: Yup.string()
-					.required('bank_lib.empty_agency')
-					.max(bank?.agency_max_length, 'bank_lib.agency_max'),
+					.max(bank?.agency_max_length, 'bank_lib.agency_max')
+					.required('bank_lib.empty_agency'),
 
 				agencyDigit: Yup.string()
 					.test(
@@ -129,9 +129,9 @@ const BankFormBrasil = (props, ref) => {
 					).nullable(),
 
 				account: Yup.string()
-					.required('bank_lib.empty_account')
 					.min(2, 'bank_lib.account_min')
-					.max(bank?.account_max_length, 'bank_lib.account_max'),
+					.max(bank?.account_max_length, 'bank_lib.account_max')
+					.required('bank_lib.empty_account'),
 
 				accountDigit: Yup.string()
 					.test(

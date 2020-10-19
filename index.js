@@ -42,7 +42,6 @@ const BankForm = (props, ref) => {
 		} else {
 			params.country_iso = countries["pt-br"];
 		}
-		console.log(params)
 		axios
 			.get(route + '/filter', {
 				params,

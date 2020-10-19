@@ -139,6 +139,7 @@ const BankSearchInput = (props) => {
 			</View>
 			<FlatList
 				data={bankArray}
+				nestedScrollEnabled
 				keyExtractor={(x, i) => i.toString()}
 				renderItem={({ item }) => (
 					<TouchableOpacity

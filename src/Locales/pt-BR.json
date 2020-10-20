@@ -15,7 +15,7 @@
     "agency_max": "Sua Agência excedeu o número máximo de caracteres",
     "empty_agency": "Insira o número da Agência",
     "agency_digit": "DÍGITO DA AGÊNCIA",
-    "agency_digit_required": "Informe o Dígito da Agência",
+    "agency_digit_required": "Informe 0 caso não exista",
     "agency_digit_length": "Tamanho máximo do dígito excedido",
     "empty_agency_digit": "Insira o Dígito da Agência",
     "account_titular": "TITULAR DA CONTA",

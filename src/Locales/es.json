@@ -15,7 +15,7 @@
       "agency_max": "Sua Agência excedeu o número máximo de caracteres",
       "empty_agency": "Ingrese el número de agencia",
       "agency_digit": "DIGITO DE AGENCIA",
-      "agency_digit_required": "Ingrese el dígito de la agencia",
+      "agency_digit_required": "Ingrese 0 si no existe.",
       "agency_digit_length": "Tamanho máximo do dígito excedido",
       "empty_agency_digit": "Ingrese el dígito de la agencia",
 

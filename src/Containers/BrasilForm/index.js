@@ -111,14 +111,14 @@ const BankFormBrasil = (props, ref) => {
 					.required('bank_lib.empty_agency'),
 
 				agencyDigit: Yup.string()
-					.test(
+					/*.test(
 						'validAgencyDigit',
 						'bank_lib.agency_digit_required',
 						(value) =>
 							bank?.agency_digit_required
 								? value.length > 0
 								: true,
-					)
+					)*/
 					.test(
 						'validAgencyDigitLength',
 						'bank_lib.agency_digit_length',
@@ -126,7 +126,7 @@ const BankFormBrasil = (props, ref) => {
 							bank?.agency_digit_required
 								? value.length <= bank?.agency_digit_max_length
 								: true,
-					).nullable(),
+					).required('bank_lib.agency_digit_required'),
 
 				account: Yup.string()
 					.min(2, 'bank_lib.account_min')
@@ -134,14 +134,14 @@ const BankFormBrasil = (props, ref) => {
 					.required('bank_lib.empty_account'),
 
 				accountDigit: Yup.string()
-					.test(
+					/*.test(
 						'validAccountDigit',
 						'bank_lib.account_digit_required',
 						(value) =>
 							bank?.account_digit_required
 								? value.length > 0
 								: true,
-					)
+					)*/
 					.test(
 						'validAccountDigitLength',
 						'bank_lib.account_digit_length',
@@ -149,7 +149,7 @@ const BankFormBrasil = (props, ref) => {
 							bank?.account_digit_required
 								? value.length <= bank?.account_digit_max_length
 								: true,
-					).nullable(),
+					).required('bank_lib.account_digit_required'),
 			});
 			await schema.validate(data, { abortEarly: false });
 

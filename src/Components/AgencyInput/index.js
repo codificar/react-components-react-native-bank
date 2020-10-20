@@ -74,6 +74,15 @@ const AgencyInput = (props, ref) => {
 		}
 	};
 
+	const onEndEditting = (value) => {
+		var text = value.nativeEvent.text;
+		text = text.padStart(agencyMaxLength, '0'); 
+
+		if (inputRef.current) {
+			inputRef.current.value = text;
+		}
+	}
+
 	return (
 		<View style={[styles.container, formGroupStyle]}>
 			{label && (
@@ -85,6 +94,7 @@ const AgencyInput = (props, ref) => {
 				maxLength={agencyMaxLength}
 				defaultValue={defaultValue}
 				onChangeText={onChangeText}
+				onEndEditing={onEndEditting}
 				//		value={text}
 				{...props}
 			/>

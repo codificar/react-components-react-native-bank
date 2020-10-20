@@ -10,8 +10,9 @@
     "empty_account_digit": "Insert your Account's Digit",
     "agency": "   AGENCY (WITHOUT DIGIT)",
     "agency_min": "Your Agency must be at least 2 characters long",
+    "agency_digit_required": "Enter 0 if it does not exist.",
     "empty_agency": "Insert your Agency",
-    "agency_digit": "   AGENCY DIGIT (OPTIONAL)",
+    "agency_digit": "   AGENCY DIGIT",
     "empty_agency_digit": "Insert your Agency's Digit",
     
     "account_type": "   ACCOUNT TYPE",
@@ -26,6 +27,6 @@
     "current_account": "Individual Current Account",
     "joint_current_account": "Joint Current Account",
     "saving_account": "Individual Saving Account",
-    "joint_saving_account": "Joint Saving Account",
+    "joint_saving_account": "Joint Saving Account"
   }
 }

@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	column: {
-		width: '45%',
+		width: '47%',
 	},
 });
 

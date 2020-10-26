@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import BankFormBrasil from './src/Containers/BrasilForm';
 import BankFormAngola from './src/Containers/AngolaForm';
+import DefaultForm from './src/Containers/DefaultForm';
 
 let defaultForm = {
 	bank: undefined,
@@ -15,7 +16,9 @@ let defaultForm = {
 
 const countries = {
     'pt-br': 'BR',
-    'pt-ao': 'AO',
+	'pt-ao': 'AO',
+	'ao': 'AO',
+	'pt': 'PT',
 	'es': 'ES',
 	//'en': '',
 }
@@ -85,7 +88,15 @@ const BankForm = (props, ref) => {
 
 	return (
 		<>
-			{params.lang === 'pt-ao' ? (
+			{params.lang === 'pt-br' ? (
+				<BankFormBrasil
+					ref={ref}
+					stylesheet={stylesheet}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
+					banks={banks}
+					submit={ (data) => onSubmit(data)}
+				/>
+			) : params.lang === 'pt-ao' || params.lang === 'ao' ? (
 				<BankFormAngola 
 					ref={ref}
 					stylesheet={stylesheet}
@@ -94,8 +105,7 @@ const BankForm = (props, ref) => {
 					submit={ (data) => onSubmit(data)}
 				/>
 			) : (
-				<BankFormBrasil
-					ref={ref}
+				<DefaultForm 
 					stylesheet={stylesheet}
 					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					banks={banks}

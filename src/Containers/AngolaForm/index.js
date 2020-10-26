@@ -54,16 +54,15 @@ const BankFormAngola = ( props , ref) => {
 		return () => Keyboard.removeListener('keyboardDidHide', hide);
 	})
 	
-	const hide = () =>{
+	const hide = () => {
 		const type = formRef.current.getFieldValue('typeAccount')
 		const ag = formRef.current.getFieldValue('agency')
-		const ac = formRef.current.getFieldValue('accountDigit')
-
-		if(bank){
-			if(type, ag, ac){
-				formRef.current.submitForm();
-			}
+		const ac = formRef.current.getFieldValue('account')
+		
+		if(bank && type && ag && ac){
+			formRef.current.submitForm();
 		}
+
 	}
 
 	/**
@@ -72,6 +71,10 @@ const BankFormAngola = ( props , ref) => {
 	 * @param {} reset
 	 */
 	async function handleSubmit(data, { reset }) {
+
+		data.agencyDigit = 0;
+		data.accountDigit = 0;
+		
 		try {
 			formRef.current.setErrors({});
 			const schema = Yup.object().shape({

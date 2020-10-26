@@ -37,7 +37,7 @@ const TypeAccount = {
 	conta_poupanca_conjunta: strings('bank_lib.joint_saving_account'),
 };
 
-const BankFormBrasil = (props, ref) => {
+const BankDefaultForm = (props, ref) => {
 	const { banks, initialData, stylesheet , submit } = props;
 	const [bank, setBank] = useState(undefined);
 
@@ -68,7 +68,7 @@ const BankFormBrasil = (props, ref) => {
 		const type = formRef.current.getFieldValue('typeAccount')
 		const ag = formRef.current.getFieldValue('agency')
 		const agDigit = formRef.current.getFieldValue('agencyDigit')
-		const ac = formRef.current.getFieldValue('account')
+		const ac = formRef.current.getFieldValue('accountDigit')
 		const acDigit = formRef.current.getFieldValue('accountDigit')
 		
 		if(bank){
@@ -305,4 +305,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default forwardRef(BankFormBrasil);
+export default forwardRef(BankDefaultForm);

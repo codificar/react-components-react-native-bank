@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PickerProps } from '@react-native-community/picker/typings/Picker';
+import { PickerProps } from '@react-native-picker/picker/typings/Picker';
 
 interface DropDownProps extends PickerProps {
 	/**

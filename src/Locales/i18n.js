@@ -13,6 +13,7 @@ I18n.translations['en-US'] = { ...en, ...I18n.translations['en-US'] }
 I18n.translations['pt-BR'] = { ...ptBR, ...I18n.translations['pt-BR'] }
 I18n.translations['pt-AO'] = {...ptAO, ...I18n.translations['pt-AO'] }
 I18n.translations['ao'] = {...ptAO, ...I18n.translations['ao'] }
+I18n.translations['pt-PT'] = {...ptAO, ...I18n.translations['pt-PT'] }
 
 // The method we'll use instead of a regular string
 export function strings(name, params = {}) {

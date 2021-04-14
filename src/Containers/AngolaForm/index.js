@@ -83,9 +83,9 @@ const BankFormAngola = ( props , ref) => {
 
 				bank: Yup.string().required('bank_lib.empty_bank'),
 
-				agency: Yup.string()
-					.required('bank_lib.empty_agency')
-					.min(3, 'bank_lib.agency_min'),
+				// agency: Yup.string()
+				// 	.required('bank_lib.empty_agency')
+				// 	.min(3, 'bank_lib.agency_min'),
 
 
 				account: Yup.string()
@@ -166,7 +166,7 @@ const changeBank = (newBank) => {
 						stylesheet={stylesheet}
 						onSelectBank={(value) => {
 							changeBank(value);
-							agencyRef.current?.focus();
+							accountRef.current?.focus();
 						}}
 						clearErrors={() =>
 							formRef.current.setFieldError('bank', '')
@@ -175,13 +175,13 @@ const changeBank = (newBank) => {
 				</View>
 
 				<View style={{ marginTop: 10 }}>
-					<Input
+					{/* <Input
 						ref={agencyRef}
 						label={strings('bank_lib.agency')}
 						stylesheet={stylesheet}
 						name="agency"
 						onEndEditing={() => accountRef.current?.focus()}
-					/>
+					/> */}
 				</View>
 
 				<Input

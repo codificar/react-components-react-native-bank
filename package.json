@@ -14,7 +14,7 @@
 	},
 	"dependencies": {
 		"@react-native-community/datetimepicker": "^2.6.1",
-		"@react-native-picker/picker": "^1.7.1",
+		"@react-native-picker/picker": "^1.16.2",
 		"@unform/core": "2.1.0",
 		"@unform/mobile": "2.1.0",
 		"axios": "^0.19.2",

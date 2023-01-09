@@ -1,0 +1,32 @@
+{
+  "bank_lib": {
+    "account": "   ACCOUNT (WITHOUT DIGIT)",
+    "account_min": "Your Account must be at least 2 characters long",
+    "empty_account": "Insert your Account",
+    "bank": "   BANK",
+    "empty_bank": "Choose your Bank",
+    "account_digit": "   ACCOUNT DIGIT",
+    "account_digit_required": "Account digit is required",
+    "empty_account_digit": "Insert your Account's Digit",
+    "agency": "   AGENCY (WITHOUT DIGIT)",
+    "agency_min": "Your Agency must be at least 2 characters long",
+    "agency_digit_required": "Enter 0 if it does not exist.",
+    "empty_agency": "Insert your Agency",
+    "agency_digit": "   AGENCY DIGIT",
+    "empty_agency_digit": "Insert your Agency's Digit",
+    
+    "account_type": "   ACCOUNT TYPE",
+    "empty_account_type": "Choose your Account Type",
+    "account_type_titular": "   TITULAR TYPE",
+    "empty_type_titular": "Choose Titular Type",
+
+    "required_field": "Required field",
+
+    "corporative": "Corporative",
+    "individual": "Individual",
+    "current_account": "Individual Current Account",
+    "joint_current_account": "Joint Current Account",
+    "saving_account": "Individual Saving Account",
+    "joint_saving_account": "Joint Saving Account"
+  }
+}

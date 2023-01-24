@@ -1,0 +1,38 @@
+{
+  "bank_lib": {
+    "account": "CONTA (SEM DÍGITO)",
+    "account_min": "Sua Conta deve possuir ao menos 2 caracteres",
+    "empty_account": "Insira o número da Conta",
+    "bank": "BANCO",
+    "empty_bank": "Selecione um Banco válido",
+    "account_digit": "DÍGITO DA CONTA",
+    "account_max": "Sua conta excedeu o número máximo de caracteres",
+    "empty_account_digit": "Insira o Dígito da Conta",
+    "account_digit_required": "Insira o Dígito da Conta",
+    "account_digit_length": "Tamanho máximo do dígito excedido",
+    "agency": "AGÊNCIA (SEM DÍGITO)",
+    "agency_min": "Sua Agência deve possuir ao menos 2 caracteres",
+    "agency_max": "Sua Agência excedeu o número máximo de caracteres",
+    "empty_agency": "Insira o número da Agência",
+    "agency_digit": "DÍGITO DA AGÊNCIA",
+    "agency_digit_required": "Informe 0 caso não exista",
+    "agency_digit_length": "Tamanho máximo do dígito excedido",
+    "empty_agency_digit": "Insira o Dígito da Agência",
+    "account_titular": "TITULAR DA CONTA",
+    "empty_account_titular": "Insira o Titular da Conta",
+
+    "account_type": "TIPO DA CONTA",
+    "empty_account_type": "Selecione o Tipo de Conta",
+    "account_type_titular": "TIPO DO TITULAR",
+    "empty_type_titular": "Selecione o Tipo de Titular",
+    
+    "required_field": "Campo obrigatório",
+
+    "corporative": "Pessoa Jurídica",
+    "individual": "Pessoa Física",
+    "current_account": "Conta Corrente",
+    "joint_current_account": "Conta Corrente Conjunta",
+    "saving_account": "Conta Poupança",
+    "joint_saving_account": "Conta Poupança Conjunta"
+  }
+}

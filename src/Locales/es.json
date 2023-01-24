@@ -1,0 +1,41 @@
+{
+    "bank_lib": {
+      "account": "CUENTA (SIN DÍGITO)",
+      "account_min": "Su cuenta deve haber 2 digitos",
+      "empty_account": "Ingrese el número de cuenta",
+      "bank": "BANCO",
+      "empty_bank": "Selecciona tu banco",
+      "account_digit": "DIGITO DE CUENTA",
+      "account_max": "Sua conta excedeu o número máximo de caracteres",
+      "empty_account_digit": "Ingresar dígito de cuenta",
+      "account_digit_required": "Ingrese el digito de cuenta",
+      "account_digit_length": "Tamanho máximo do dígito excedido",
+      "agency": "AGENCIA (SIN DÍGITO)",
+      "agency_min": "Su agencia deve haber 2 digitos.",
+      "agency_max": "Sua Agência excedeu o número máximo de caracteres",
+      "empty_agency": "Ingrese el número de agencia",
+      "agency_digit": "DIGITO DE AGENCIA",
+      "agency_digit_required": "Ingrese 0 si no existe.",
+      "agency_digit_length": "Tamanho máximo do dígito excedido",
+      "empty_agency_digit": "Ingrese el dígito de la agencia",
+
+      "account_type": "TIPO DE CUENTA",
+      "empty_account_type": "Seleccionar tipo de cuenta",
+      "account_type_titular": "TIPO DE TITULAR",
+      "empty_type_titular": "Seleccionar tipo de titular",
+      
+      "required_field": "Campo obrigatório",
+  
+      "corporative": "Corporativo",
+      "individual": "Individual",
+      "current_account": "Cuenta corriente",
+      "joint_current_account": "Cuenta corriente conjunta",
+      "saving_account": "Cuenta de ahorro",
+      "joint_saving_account": "Cuenta de ahorro conjunta",
+  
+
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "checkingAccount": "Cuenta corriente"
+    }
+  }

@@ -1,0 +1,43 @@
+{
+  "bank_lib": {
+    "account": "Conta de IBAN",
+    "account_min": "Sua Conta deve possuir ao menos 3 caracteres",
+    "empty_account": "Insira o número Conta de IBAN",
+    "bank": "Banco",
+    "empty_bank": "Selecione seu Banco",
+    "account_digit": "Dígito da conta",
+    "empty_account_digit": "Insira o Dígito do IBAN",
+    "agency": "Agência",
+    "agency_min": "Sua Agência deve possuir ao menos 3 caracteres",
+    "empty_agency": "Insira o número de IBAN da Agência",
+    "agency_digit": "Digito da agência",
+    "empty_agency_digit": "Insira o Dígito da Agência",
+    "account_titular": "Beneficiário",
+    "empty_account_titular": "Insira o Titular da Conta",
+
+    "account_type": "Tipo de conta",
+    "empty_account_type": "Selecione o Tipo de Conta",
+    "account_type_titular": "Tipo de pessoa",
+    "empty_type_titular": "Selecione o Tipo de Titular",
+    
+    "required_field": "Campo obrigatório",
+
+    "corporative": "Empresa",
+    "individual": "Particular",
+    "current_account": "Conta Corrente",
+    "joint_current_account": "Conta Corrente Conjunta",
+    "saving_account": "Conta Poupança",
+    "joint_saving_account": "Conta Poupança Conjunta",
+
+    "accountType": "Tipo de conta",
+    "emptyAgency": "Insira a agência",
+    "emptyAccount": "Insira a conta",
+
+    "agencyDigit": "Dígito da agência",
+    "accountDigit": "Dígito da conta",
+    "emptyAgencyDigit": "Insira o dígito da agência",
+    "emptyAccountDigit": "Insira o dígito da conta"
+  }
+}
+
+

@@ -4,6 +4,7 @@ import axios from 'axios';
 import BankFormBrasil from './src/Containers/BrasilForm';
 import BankFormAngola from './src/Containers/AngolaForm';
 import BankFormChile from './src/Containers/ChileForm';
+import BankFromUnitedKingdom from './src/Containers/UnitedKingdomForm';
 import DefaultForm from './src/Containers/DefaultForm';
 
 let defaultForm = {
@@ -17,11 +18,12 @@ let defaultForm = {
 
 const countries = {
     'pt-br': 'BR',
-	'pt-ao': 'AO',
-	'es-cl': 'CL',
-	'ao': 'AO',
-	'pt': 'PT',
-	'es': 'ES',
+
+  'pt-ao': 'AO',
+  'es-cl': 'CL',
+  'ao': 'AO',
+  'pt': 'PT',
+  'es': 'ES',
 }
 
 const initialDataSchema = {
@@ -40,10 +42,11 @@ const BankForm = (props, ref) => {
 	 * @returns Array com bancos retornados da API
 	 **/
 	useEffect(() => {
-
 		if(!params.country_iso && countries[params.lang]) {
 			params.country_iso = countries[params.lang];
-		} else {
+		} else if (params.lang === 'en_GB'){
+      params.country_iso = 'GB'
+    } else {
 			params.country_iso = countries["pt-br"];
 		}
 		axios
@@ -55,7 +58,6 @@ const BankForm = (props, ref) => {
 				setBanks(result);
 			})
 			.catch((err) => {
-				console.error('Erro bank request: ', err);
 			});
 	}, [params, route]);
 
@@ -89,7 +91,7 @@ const BankForm = (props, ref) => {
 
 	return (
 		<>
-			{params.lang === 'pt-br' ? (
+			{params.lang === 'pt-br' || params.lang === 'pt_BR'? (
 				<BankFormBrasil
 					ref={ref}
 					stylesheet={stylesheet}
@@ -97,15 +99,15 @@ const BankForm = (props, ref) => {
 					banks={banks}
 					submit={ (data) => onSubmit(data)}
 				/>
-			) : params.lang === 'pt-ao' || params.lang === 'ao' ? (
-				<BankFormAngola 
+			) : params.lang === 'pt-ao' || params.lang === 'ao'  ? (
+				<BankFormAngola
 					ref={ref}
 					stylesheet={stylesheet}
 					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					banks={banks}
 					submit={ (data) => onSubmit(data)}
 				/>
-			) : params.lang === 'es-cl' ? (
+			) : params.lang === 'es-cl' || params.lang === 'es_CL' ? (
 				<BankFormChile
 					ref={ref}
 					stylesheet={stylesheet}
@@ -113,8 +115,16 @@ const BankForm = (props, ref) => {
 					banks={banks}
 					submit={ (data) => onSubmit(data)}
 				/>
-			) : (
-				<DefaultForm 
+			)  :params.lang === 'en_GB' ? (
+        <BankFromUnitedKingdom
+          ref={ref}
+          stylesheet={stylesheet}
+          initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
+          banks={banks}
+          submit={ (data) => onSubmit(data)}
+        />
+      ) : (
+				<DefaultForm
 					stylesheet={stylesheet}
 					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					banks={banks}

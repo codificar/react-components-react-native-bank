@@ -17,8 +17,8 @@ let defaultForm = {
 };
 
 const countries = {
-  'pt-br': 'BR',
-  'en_GB': 'GB',
+    'pt-br': 'BR',
+
   'pt-ao': 'AO',
   'es-cl': 'CL',
   'ao': 'AO',
@@ -99,7 +99,7 @@ const BankForm = (props, ref) => {
 					banks={banks}
 					submit={ (data) => onSubmit(data)}
 				/>
-			) : params.lang === 'pt-ao' || params.lang === 'ao' || params.lang === 'pt_AO' ? (
+			) : params.lang === 'pt-ao' || params.lang === 'ao'  ? (
 				<BankFormAngola
 					ref={ref}
 					stylesheet={stylesheet}

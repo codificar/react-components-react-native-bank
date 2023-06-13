@@ -77,8 +77,6 @@ const BankFormBrasil = (props, ref) => {
 					if(agDigit && acDigit){
 						formRef.current.submitForm();
 					}
-				} else {
-					formRef.current.submitForm();
 				}
 			}
 		}

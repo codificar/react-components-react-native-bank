@@ -17,13 +17,14 @@ let defaultForm = {
 };
 
 const countries = {
-    'pt-br': 'BR',
-
+  'pt-br': 'BR',
+  'en-gb': 'GB',
   'pt-ao': 'AO',
   'es-cl': 'CL',
   'ao': 'AO',
   'pt': 'PT',
   'es': 'ES',
+  'es-py': 'PY',
 }
 
 const initialDataSchema = {
@@ -42,13 +43,9 @@ const BankForm = (props, ref) => {
 	 * @returns Array com bancos retornados da API
 	 **/
 	useEffect(() => {
-		if(!params.country_iso && countries[params.lang]) {
-			params.country_iso = countries[params.lang];
-		} else if (params.lang === 'en_GB'){
-      params.country_iso = 'GB'
-    } else {
-			params.country_iso = countries["pt-br"];
-		}
+    if (countries.hasOwnProperty(params.lang.toLowerCase())) {
+      params.country_iso =  countries[params.lang.toLowerCase()];
+    }
 		axios
 			.get(route + '/filter', {
 				params,

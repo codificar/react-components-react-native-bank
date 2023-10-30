@@ -113,15 +113,16 @@ const BankForm = (props, ref) => {
 					submit={ (data) => onSubmit(data)}
 				/>
 			)  :params.lang === 'en_GB' ? (
-        <BankFromUnitedKingdom
-          ref={ref}
-          stylesheet={stylesheet}
-          initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
-          banks={banks}
-          submit={ (data) => onSubmit(data)}
-        />
-      ) : (
+				<BankFromUnitedKingdom
+					ref={ref}
+					stylesheet={stylesheet}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
+					banks={banks}
+					submit={ (data) => onSubmit(data)}
+					/>
+			) : (
 				<DefaultForm
+					ref={ref}
 					stylesheet={stylesheet}
 					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					banks={banks}

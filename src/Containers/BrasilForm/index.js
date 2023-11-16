@@ -28,7 +28,7 @@ import AgencyDigitInput from '../../Components/AgencyDigitInput';
 import AccountDigitInput from '../../Components/AccountDigitInput';
 
 //Lib de traduçoes
-import { strings } from '../../Locales/i18n';
+import { strings, currentLocale } from '../../Locales/i18n';
 
 const TypeAccount = {
 	conta_corrente: strings('bank_lib.current_account'),
@@ -96,6 +96,10 @@ const BankFormBrasil = (props, ref) => {
 	 * @param {Object} reset
 	 */
 	const handleSubmit = async (data, { reset }) => {
+		if (currentLocale === 'es-PY') {
+			submit(data);
+			return;
+		}
 		try {
 			formRef.current.setErrors({});
 
@@ -238,7 +242,7 @@ const BankFormBrasil = (props, ref) => {
 								stylesheet={stylesheet}
 								name="agency"
 								keyboardType="numeric"
-								agencyMaxLength={bank?.agency_max_length}
+								agencyMaxLength={currentLocale ==='es-PY' ? null :bank?.agency_max_length}
 								onSubmitEditing={() => agencyDigitRef.current?.focus()}
 							/>
 						</View>
@@ -252,7 +256,7 @@ const BankFormBrasil = (props, ref) => {
 								agencyDigitRequired={Boolean(
 									Number(bank?.agency_digit_required),
 								)}
-								agencyDigitMaxLength={ bank?.agency_digit_max_length }
+								maxLength={currentLocale ==='es-PY' ? null : bank?.agency_digit_max_length }
 								onSubmitEditing={() => accountRef.current?.focus()}
 							/>
 						</View>
@@ -266,7 +270,7 @@ const BankFormBrasil = (props, ref) => {
 								name="account"
 								label={strings('bank_lib.account')}
 								keyboardType="numeric"
-								accountMaxLength={bank?.account_max_length}
+								accountMaxLength={currentLocale ==='es-PY' ? null : bank?.account_max_length}
 								onSubmitEditing={() => accountDigitRef.current?.focus()}
 							/>
 						</View>
@@ -280,7 +284,7 @@ const BankFormBrasil = (props, ref) => {
 								accountDigitRequired={Boolean(
 									Number(bank?.account_digit_required),
 								)}
-								accountDigitMaxLength={ bank?.account_digit_max_length }
+								maxLength={currentLocale ==='es-PY' ? null : bank?.account_digit_max_length }
 								onSubmitEditing={() => formRef.current?.submitForm()}
 							/>
 						</View>

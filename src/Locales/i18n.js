@@ -7,10 +7,12 @@ const ptBR = require('../Locales/pt-BR.json');
 const ptAO = require('../Locales/pt-AO.json');
 const esPY = require('../Locales/es-PY.json');
 
+export const currentLocale = I18n.currentLocale();
+
 // Define the supported translation
 I18n.translations['es'] = { ...es, ...I18n.translations['es'] }
 I18n.translations['es-cl'] = { ...es, ...I18n.translations['es-cl'] }
-I18n.translations['es-PY'] = { ...es, ...I18n.translations['es-PY'] }
+I18n.translations['es-PY'] = { ...esPY, ...I18n.translations['es-PY'] }
 I18n.translations['en'] = { ...en, ...I18n.translations['en'] }
 I18n.translations['en-US'] = { ...en, ...I18n.translations['en-US'] }
 I18n.translations['en-GB'] = { ...enGB, ...I18n.translations['en-GB'] }

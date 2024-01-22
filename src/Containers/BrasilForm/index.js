@@ -5,12 +5,7 @@ import React, {
 	useState,
 	useImperativeHandle,
 } from 'react';
-import {
-	Keyboard,
-	StyleSheet,
-	View,
-	TouchableWithoutFeedback
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 // Unform Rocketseat
 import { Form } from '@unform/mobile';
@@ -38,7 +33,7 @@ const TypeAccount = {
 };
 
 const BankFormBrasil = (props, ref) => {
-	const { banks, initialData, stylesheet , submit } = props;
+	const { banks, initialData, stylesheet , submit, onLastInputSubmitEditing } = props;
 	const [bank, setBank] = useState(undefined);
 
 	const formRef = useRef(null);
@@ -57,30 +52,6 @@ const BankFormBrasil = (props, ref) => {
 			}
 		}
 	}, [banks, initialData.bank]);
-
-	useEffect(() => {
-		Keyboard.addListener('keyboardDidHide', hide);
-	
-		return () => Keyboard.removeListener('keyboardDidHide', hide);
-	})
-	
-	const hide = () => {
-		const type = formRef.current.getFieldValue('typeAccount')
-		const ag = formRef.current.getFieldValue('agency')
-		const agDigit = formRef.current.getFieldValue('agencyDigit')
-		const ac = formRef.current.getFieldValue('account')
-		const acDigit = formRef.current.getFieldValue('accountDigit')
-		
-		if(bank){
-			if(type && ag && ac){
-				if(bank.agency_digit_required && bank.account_digit_required){
-					if(agDigit && acDigit){
-						formRef.current.submitForm();
-					}
-				}
-			}
-		}
-	}
 
 	/**
 	 * Realiza as validaçoes dos campos para enviar o form
@@ -109,14 +80,6 @@ const BankFormBrasil = (props, ref) => {
 					.required('bank_lib.empty_agency'),
 
 				agencyDigit: Yup.string()
-					/*.test(
-						'validAgencyDigit',
-						'bank_lib.agency_digit_required',
-						(value) =>
-							bank?.agency_digit_required
-								? value.length > 0
-								: true,
-					)*/
 					.test(
 						'validAgencyDigitLength',
 						'bank_lib.agency_digit_length',
@@ -132,14 +95,6 @@ const BankFormBrasil = (props, ref) => {
 					.required('bank_lib.empty_account'),
 
 				accountDigit: Yup.string()
-					/*.test(
-						'validAccountDigit',
-						'bank_lib.account_digit_required',
-						(value) =>
-							bank?.account_digit_required
-								? value.length > 0
-								: true,
-					)*/
 					.test(
 						'validAccountDigitLength',
 						'bank_lib.account_digit_length',
@@ -152,7 +107,6 @@ const BankFormBrasil = (props, ref) => {
 			await schema.validate(data, { abortEarly: false });
 
 			submit(data);
-			//reset();
 		} catch (err) {
 			if (err instanceof Yup.ValidationError) {
 				const errorMessages = {};
@@ -200,94 +154,92 @@ const BankFormBrasil = (props, ref) => {
 	};
 
 	return (
-		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-			<Form
-				ref={formRef}
-				onSubmit={handleSubmit}
-				initialData={initialData}
-				>
-				<DropdownPicker
-					stylesheet={stylesheet}
-					name="typeAccount"
-					label={strings('bank_lib.account_type')}
-					onChange={() => clearAccountFiels()}
-					datasource={TypeAccount}
-				/>
+    <Form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      initialData={initialData}
+      >
+      <DropdownPicker
+        stylesheet={stylesheet}
+        name="typeAccount"
+        label={strings('bank_lib.account_type')}
+        onChange={() => clearAccountFiels()}
+        datasource={TypeAccount}
+      />
 
-				<View style={styles.bankSearch}>
-					<BankSearchInput
-						name="bank"
-						label={strings('bank_lib.bank')}
-						banks={banks}
-						selectedBank={bank?.id}
-						stylesheet={stylesheet}
-						onSelectBank={(value) => {
-							changeBank(value);
-							agencyRef.current?.focus();
-						}}
-						clearErrors={ () => formRef.current.setFieldError('bank', '') }
-					/>
-				</View>
+      <View style={styles.bankSearch}>
+        <BankSearchInput
+          name="bank"
+          label={strings('bank_lib.bank')}
+          banks={banks}
+          selectedBank={bank?.id}
+          stylesheet={stylesheet}
+          onSelectBank={(value) => {
+            changeBank(value);
+            agencyRef.current?.focus();
+          }}
+          clearErrors={ () => formRef.current.setFieldError('bank', '') }
+        />
+      </View>
 
-				<>
-					<View style={styles.row}>
-						<View style={styles.column}>
-							<AgencyInput
-								ref={agencyRef}
-								label={strings('bank_lib.agency')}
-								stylesheet={stylesheet}
-								name="agency"
-								keyboardType="numeric"
-								agencyMaxLength={bank?.agency_max_length}
-								onSubmitEditing={() => agencyDigitRef.current?.focus()}
-							/>
-						</View>
-						<View style={styles.column}>
-							<AgencyDigitInput
-								ref={agencyDigitRef}
-								stylesheet={stylesheet}
-								name="agencyDigit"
-								label={strings('bank_lib.agency_digit')}
-								keyboardType="numeric"
-								agencyDigitRequired={Boolean(
-									Number(bank?.agency_digit_required),
-								)}
-								agencyDigitMaxLength={ bank?.agency_digit_max_length }
-								onSubmitEditing={() => accountRef.current?.focus()}
-							/>
-						</View>
-					</View>
+      <>
+        <View style={styles.row}>
+          <View style={styles.column}>
+            <AgencyInput
+              ref={agencyRef}
+              label={strings('bank_lib.agency')}
+              stylesheet={stylesheet}
+              name="agency"
+              keyboardType="numeric"
+              agencyMaxLength={bank?.agency_max_length}
+              onSubmitEditing={() => agencyDigitRef.current?.focus()}
+            />
+          </View>
+          <View style={styles.column}>
+            <AgencyDigitInput
+              ref={agencyDigitRef}
+              stylesheet={stylesheet}
+              name="agencyDigit"
+              label={strings('bank_lib.agency_digit')}
+              keyboardType="numeric"
+              agencyDigitRequired={Boolean(
+                Number(bank?.agency_digit_required),
+              )}
+              agencyDigitMaxLength={ bank?.agency_digit_max_length }
+              onSubmitEditing={() => accountRef.current?.focus()}
+            />
+          </View>
+        </View>
 
-					<View style={styles.row}>
-						<View style={styles.column}>
-							<AccountInput
-								ref={accountRef}
-								stylesheet={stylesheet}
-								name="account"
-								label={strings('bank_lib.account')}
-								keyboardType="numeric"
-								accountMaxLength={bank?.account_max_length}
-								onSubmitEditing={() => accountDigitRef.current?.focus()}
-							/>
-						</View>
-						<View style={styles.column}>
-							<AccountDigitInput
-								ref={accountDigitRef}
-								stylesheet={stylesheet}
-								name="accountDigit"
-								label={strings('bank_lib.account_digit')}
-								keyboardType="numeric"
-								accountDigitRequired={Boolean(
-									Number(bank?.account_digit_required),
-								)}
-								accountDigitMaxLength={ bank?.account_digit_max_length }
-								onSubmitEditing={() => formRef.current?.submitForm()}
-							/>
-						</View>
-					</View>
-				</>
-			</Form>
-		</TouchableWithoutFeedback>
+        <View style={styles.row}>
+          <View style={styles.column}>
+            <AccountInput
+              ref={accountRef}
+              stylesheet={stylesheet}
+              name="account"
+              label={strings('bank_lib.account')}
+              keyboardType="numeric"
+              accountMaxLength={bank?.account_max_length}
+              onSubmitEditing={() => accountDigitRef.current?.focus()}
+            />
+          </View>
+          <View style={styles.column}>
+            <AccountDigitInput
+              ref={accountDigitRef}
+              stylesheet={stylesheet}
+              name="accountDigit"
+              label={strings('bank_lib.account_digit')}
+              keyboardType="numeric"
+              accountDigitRequired={Boolean(
+                Number(bank?.account_digit_required),
+              )}
+              accountDigitMaxLength={ bank?.account_digit_max_length }
+              onSubmitEditing={() => onLastInputSubmitEditing && onLastInputSubmitEditing()}
+            />
+          </View>
+        </View>
+      </>
+    </Form>
 	);
 };
 

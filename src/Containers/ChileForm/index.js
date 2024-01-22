@@ -5,12 +5,7 @@ import React, {
 	useState,
 	useImperativeHandle,
 } from 'react';
-import {
-	Keyboard,
-	StyleSheet,
-	View,
-	TouchableWithoutFeedback
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 // Unform Rocketseat
 import { Form } from '@unform/mobile';
@@ -35,15 +30,13 @@ const TypeAccount = {
 };
 
 const BankFormChile = (props, ref) => {
-	const { banks, initialData, stylesheet , submit } = props;
+	const { banks, initialData, stylesheet , submit, onLastInputSubmitEditing } = props;
 	const [bank, setBank] = useState(undefined);
 
 	const formRef = useRef(null);
 
 	const agencyRef = useRef(null);
-	const agencyDigitRef = useRef(null);
 	const accountRef = useRef(null);
-	const accountDigitRef = useRef(null);
 
 	// Em caso de ediçao dos dados, seta o banco do component para o indicado no initialData
 	useEffect(() => {
@@ -54,24 +47,6 @@ const BankFormChile = (props, ref) => {
 			}
 		}
 	}, [banks, initialData.bank]);
-
-	useEffect(() => {
-		Keyboard.addListener('keyboardDidHide', hide);
-	
-		return () => Keyboard.removeListener('keyboardDidHide', hide);
-	})
-	
-	const hide = () => {
-		const type = formRef.current.getFieldValue('typeAccount')
-		const ac = formRef.current.getFieldValue('account')
-		
-		if(bank){
-			if(type && ac){
-				formRef.current.submitForm();
-			}
-		}
-	}
-	
 
 	/**
 	 * Realiza as validaçoes dos campos para enviar o form
@@ -104,7 +79,6 @@ const BankFormChile = (props, ref) => {
 			await schema.validate(data, { abortEarly: false });
 
 			submit(data);
-			//reset();
 		} catch (err) {
 			if (err instanceof Yup.ValidationError) {
 				const errorMessages = {};
@@ -152,48 +126,46 @@ const BankFormChile = (props, ref) => {
 	};
 
 	return (
-		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-			<Form
-				ref={formRef}
-				onSubmit={handleSubmit}
-				initialData={initialData}
-				>
-				<DropdownPicker
-					stylesheet={stylesheet}
-					name="typeAccount"
-					label={strings('bank_lib.account_type')}
-					onChange={() => clearAccountFiels()}
-					datasource={TypeAccount}
-				/>
+		<Form
+			ref={formRef}
+			onSubmit={handleSubmit}
+			initialData={initialData}
+			>
+			<DropdownPicker
+				stylesheet={stylesheet}
+				name="typeAccount"
+				label={strings('bank_lib.account_type')}
+				onChange={() => clearAccountFiels()}
+				datasource={TypeAccount}
+			/>
 
-				<View style={styles.bankSearch}>
-					<BankSearchInput
-						name="bank"
-						label={strings('bank_lib.bank')}
-						banks={banks}
-						selectedBank={bank?.id}
-						stylesheet={stylesheet}
-						onSelectBank={(value) => {
-							changeBank(value);
-							agencyRef.current?.focus();
-						}}
-						clearErrors={ () => formRef.current.setFieldError('bank', '') }
-					/>
-				</View>
-				
-				<View style={styles.row}>
-					<AccountInput
-						ref={accountRef}
-						stylesheet={stylesheet}
-						name="account"
-						label={strings('bank_lib.account')}
-						keyboardType="numeric"
-						accountMaxLength={bank?.account_max_length}
-						onSubmitEditing={() => accountDigitRef.current?.focus()}
-					/>
-				</View>
-			</Form>
-		</TouchableWithoutFeedback>
+			<View style={styles.bankSearch}>
+				<BankSearchInput
+					name="bank"
+					label={strings('bank_lib.bank')}
+					banks={banks}
+					selectedBank={bank?.id}
+					stylesheet={stylesheet}
+					onSelectBank={(value) => {
+						changeBank(value);
+						agencyRef.current?.focus();
+					}}
+					clearErrors={ () => formRef.current.setFieldError('bank', '') }
+				/>
+			</View>
+			
+			<View style={styles.row}>
+				<AccountInput
+					ref={accountRef}
+					stylesheet={stylesheet}
+					name="account"
+					label={strings('bank_lib.account')}
+					keyboardType="numeric"
+					accountMaxLength={bank?.account_max_length}
+					onSubmitEditing={() => onLastInputSubmitEditing && onLastInputSubmitEditing()}
+				/>
+			</View>
+		</Form>
 	);
 };
 

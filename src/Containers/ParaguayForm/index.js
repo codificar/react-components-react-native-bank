@@ -33,8 +33,6 @@ const ParaguayForm = ( props , ref) => {
 
   // Em caso de ediçao dos dados, seta o banco do component para o indicado no initialData
   useEffect(() => {
-    // console.log(JSON.stringify(props, null, 4))
-
     if (initialData?.bank && banks) {
       const b = banks.find((value) => value.id === initialData.bank);
       if (b) {
@@ -51,6 +49,7 @@ const ParaguayForm = ( props , ref) => {
    */
   async function handleSubmit(data, { reset }) {
 
+    data.agency = 0;
     data.agencyDigit = 0;
     data.accountDigit = 0;
 
@@ -87,7 +86,6 @@ const ParaguayForm = ( props , ref) => {
 // Encaminha os métodos de referencia do form
 useImperativeHandle(ref, () => ({
   submitForm() {
-    console.log('TESTE')
     formRef.current.submitForm();
   },
 }));

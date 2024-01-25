@@ -5,12 +5,7 @@ import React, {
 	useState,
 	useImperativeHandle,
 } from 'react';
-import {
-	StyleSheet,
-	View,
-	TouchableWithoutFeedback,
-	Keyboard,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Form } from '@unform/mobile';
 
 import * as Yup from 'yup';
@@ -30,11 +25,10 @@ const TypeAccount = {
 
 const BankFormAngola = ( props , ref) => {
 
-	const { banks, initialData, stylesheet , submit } = props;
+	const { banks, initialData, stylesheet , submit, onLastInputSubmitEditing } = props;
 	const [bank, setBank] = useState(undefined);
 
 	const formRef = useRef(null);
-	const agencyRef = useRef(null);
 	const accountRef = useRef(null);
 
 	// Em caso de ediçao dos dados, seta o banco do component para o indicado no initialData
@@ -47,23 +41,6 @@ const BankFormAngola = ( props , ref) => {
 			}
 		}
 	}, [banks, initialData.bank]);
-
-	useEffect(() => {
-		Keyboard.addListener('keyboardDidHide', hide);
-	
-		return () => Keyboard.removeListener('keyboardDidHide', hide);
-	})
-	
-	const hide = () => {
-		const type = formRef.current.getFieldValue('typeAccount')
-		const ag = formRef.current.getFieldValue('agency')
-		const ac = formRef.current.getFieldValue('account')
-		
-		if(bank && type && ag && ac){
-			formRef.current.submitForm();
-		}
-
-	}
 
 	/**
 	 * Realiza as validaçoes dos campos para enviar o form
@@ -82,11 +59,6 @@ const BankFormAngola = ( props , ref) => {
 				typeAccount: Yup.string().required('bank_lib.empty_account_type'),
 
 				bank: Yup.string().required('bank_lib.empty_bank'),
-
-				// agency: Yup.string()
-				// 	.required('bank_lib.empty_agency')
-				// 	.min(3, 'bank_lib.agency_min'),
-
 
 				account: Yup.string()
 					.required('bank_lib.empty_account')
@@ -143,70 +115,51 @@ const changeBank = (newBank) => {
 };
 
 	return (
-		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-			<Form
-				ref={formRef}
-				onSubmit={handleSubmit}
-				initialData={initialData}>
+		<Form
+			ref={formRef}
+			onSubmit={handleSubmit}
+			initialData={initialData}>
 
-				<DropdownPicker
+			<DropdownPicker
+				stylesheet={stylesheet}
+				name="typeAccount"
+				label={strings('bank_lib.account_type')}
+				onChange={() => clearAccountFiels()}
+				datasource={TypeAccount}
+			/>
+
+			<View style={styles.bankSearch}>
+				<BankSearchInput
+					name="bank"
+					label={strings('bank_lib.bank')}
+					banks={banks}
+					selectedBank={bank?.id}
 					stylesheet={stylesheet}
-					name="typeAccount"
-					label={strings('bank_lib.account_type')}
-					onChange={() => clearAccountFiels()}
-					datasource={TypeAccount}
+					onSelectBank={(value) => {
+						changeBank(value);
+						accountRef.current?.focus();
+					}}
+					clearErrors={() =>
+						formRef.current.setFieldError('bank', '')
+					}
 				/>
+			</View>
 
-				<View style={styles.bankSearch}>
-					<BankSearchInput
-						name="bank"
-						label={strings('bank_lib.bank')}
-						banks={banks}
-						selectedBank={bank?.id}
-						stylesheet={stylesheet}
-						onSelectBank={(value) => {
-							changeBank(value);
-							accountRef.current?.focus();
-						}}
-						clearErrors={() =>
-							formRef.current.setFieldError('bank', '')
-						}
-					/>
-				</View>
-
-				<View style={{ marginTop: 10 }}>
-					{/* <Input
-						ref={agencyRef}
-						label={strings('bank_lib.agency')}
-						stylesheet={stylesheet}
-						name="agency"
-						onEndEditing={() => accountRef.current?.focus()}
-					/> */}
-				</View>
-
-				<Input
-					ref={accountRef}
-					stylesheet={stylesheet}
-					name="account"
-					label={strings('bank_lib.account')}
-					onEndEditing={() => formRef.current.submitForm()}
-				/>
-			</Form>
-		</TouchableWithoutFeedback>
+			<Input
+				ref={accountRef}
+				stylesheet={stylesheet}
+				name="account"
+				label={strings('bank_lib.account')}
+				onSubmitEditing={() => onLastInputSubmitEditing && onLastInputSubmitEditing()}
+			/>
+		</Form>
 	);
 };
 
 const styles = StyleSheet.create({
 	bankSearch: {
 		maxHeight: '40%',
-	},
-	row: {
-		marginTop: 10,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-	},
-	column: {
-		width: '47%',
+		marginVertical: 10,
 	},
 });
 

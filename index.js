@@ -1,8 +1,9 @@
 import React, { useEffect, useState, forwardRef } from 'react';
-import axios from 'axios';
+import AXIOS from 'axios';
 
 import BankFormBrasil from './src/Containers/BrasilForm';
 import BankFormAngola from './src/Containers/AngolaForm';
+import BankParaguayForm from './src/Containers/ParaguayForm';
 import BankFormChile from './src/Containers/ChileForm';
 import BankFromUnitedKingdom from './src/Containers/UnitedKingdomForm';
 import DefaultForm from './src/Containers/DefaultForm';
@@ -37,25 +38,26 @@ const initialDataSchema = {
 
 const BankForm = (props, ref) => {
 	const [banks, setBanks] = useState([]);
-	const { route, initialData, onSubmit, params, stylesheet } = props;
+	const { route, initialData, onSubmit, params, stylesheet, onLastInputSubmitEditing } = props;
 
 	/**
 	 * @returns Array com bancos retornados da API
 	 **/
 	useEffect(() => {
     if (countries.hasOwnProperty(params.lang.toLowerCase())) {
-      params.country_iso =  countries[params.lang.toLowerCase()];
+      params.country_iso = countries[params.lang.toLowerCase()];
     }
-		axios
-			.get(route + '/filter', {
-				params,
-			})
-			.then((response) => {
-				const result = response.data;
-				setBanks(result);
-			})
-			.catch((err) => {
-			});
+
+    AXIOS
+      .get(route + '/filter', {
+        params,
+      })
+      .then((response) => {
+        const result = response.data;
+        setBanks(result);
+      })
+      .catch((err) => {
+      });
 	}, [params, route]);
 
 	/**
@@ -91,42 +93,56 @@ const BankForm = (props, ref) => {
 			{params.lang === 'pt-br' || params.lang === 'pt_BR'? (
 				<BankFormBrasil
 					ref={ref}
-					stylesheet={stylesheet}
-					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					banks={banks}
+					stylesheet={stylesheet}
 					submit={ (data) => onSubmit(data)}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
+					onLastInputSubmitEditing={onLastInputSubmitEditing}
+				/>
+			) : params.lang === 'es-py' ? (
+				<BankParaguayForm
+					ref={ref}
+					banks={banks}
+					stylesheet={stylesheet}
+					submit={ (data) => onSubmit(data)}
+					onLastInputSubmitEditing={onLastInputSubmitEditing}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 				/>
 			) : params.lang === 'pt-ao' || params.lang === 'ao'  ? (
 				<BankFormAngola
 					ref={ref}
-					stylesheet={stylesheet}
-					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					banks={banks}
+					stylesheet={stylesheet}
 					submit={ (data) => onSubmit(data)}
+					onLastInputSubmitEditing={onLastInputSubmitEditing}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 				/>
 			) : params.lang === 'es-cl' || params.lang === 'es_CL' ? (
 				<BankFormChile
 					ref={ref}
-					stylesheet={stylesheet}
-					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					banks={banks}
+					stylesheet={stylesheet}
 					submit={ (data) => onSubmit(data)}
+					onLastInputSubmitEditing={onLastInputSubmitEditing}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 				/>
 			)  :params.lang === 'en_GB' ? (
 				<BankFromUnitedKingdom
 					ref={ref}
-					stylesheet={stylesheet}
-					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					banks={banks}
+					stylesheet={stylesheet}
 					submit={ (data) => onSubmit(data)}
+					onLastInputSubmitEditing={onLastInputSubmitEditing}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					/>
 			) : (
 				<DefaultForm
 					ref={ref}
-					stylesheet={stylesheet}
-					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 					banks={banks}
+					stylesheet={stylesheet}
 					submit={ (data) => onSubmit(data)}
+					onLastInputSubmitEditing={onLastInputSubmitEditing}
+					initialData={ initialDataValid() ? parseInitialDataValues() : defaultForm }
 				/>
 			)}
 		</>

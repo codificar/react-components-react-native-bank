@@ -10,7 +10,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://git.codificar.com.br/react-components/react-native-bank"
+		"url": "https://github.com/codificar/react-components-react-native-finance"
 	},
 	"dependencies": {
 		"@react-native-community/datetimepicker": "^2.6.1",
@@ -28,7 +28,7 @@
 	},
 	"author": "Codificar",
 	"bugs": {
-		"url": "https://git.codificar.com.br/react-components/react-native-bank/issues"
+		"url": "https://github.com/codificar/react-components-react-native-finance/issues"
 	},
-	"homepage": "https://git.codificar.com.br/react-components/react-native-bank#readme"
+	"homepage": "https://github.com/codificar/react-components-react-native-finance#readme"
 }
